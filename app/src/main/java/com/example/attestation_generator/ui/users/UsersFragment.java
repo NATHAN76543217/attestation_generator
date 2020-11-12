@@ -57,7 +57,7 @@ public class UsersFragment extends Fragment {
         //init mUsersList
         mUsersList = new ArrayList<>();
         fillUsersList(getContext(), mUsersList);
-        this.mUsersAdapter = new UsersListAdapter(null, null, null, this.mUsersList, mUserListener);
+        this.mUsersAdapter = new UsersListAdapter(null, null, null, null, this.mUsersList, mUserListener);
         this.mUsersView.setAdapter(this.mUsersAdapter);
         //add click listener
         btAdd.setOnClickListener(new View.OnClickListener() {
@@ -83,19 +83,19 @@ public class UsersFragment extends Fragment {
         btDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mUsersAdapter.notifyDataSetChanged();
-                for (int i = 0; i < mUsersList.size(); i++)
+                for (int i = mUsersList.size() - 1 ; i >= 0 ; i--)
                 {
                     User elem = mUsersList.get(i);
-                    Log.i("My TAG", "usr_checked: " + elem.isChecked());
+                    Log.i("My TAG", elem.getName() + "_checked: " + elem.isChecked());
                     if (elem.isChecked()) {
                         int ndx = mUsersList.indexOf(elem);
                         Log.i("My TAG", "Delete usr" + ndx + " : " + elem.getName());
                         delete_user(getContext(), mUsersList, mUsersList.get(i));
                         mUsersAdapter.notifyItemRemoved(ndx);
-
+                        mUsersAdapter.notifyDataSetChanged();
                     }
-                    else {
+                    else
+                    {
                         elem.setCheckBoxVisible(false);
                         elem.setChecked(false);
                     }
@@ -211,9 +211,6 @@ public class UsersFragment extends Fragment {
         Log.i("My TAG", "new nb users = " + usersList.size());
         editor.putInt("nbUsers", usersList.size());
         editor.apply();
-
-
-
     }
 
     @Override

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,15 +33,24 @@ public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnC
     private List<Attestation> mAttestationList;
     private AttestListAdapter mAdapter;
     private Context mContext;
+    private PopupWindow mPopupWindow;
 
-    public UsersViewHolder(@NonNull final View itemView, List<Attestation> attestationList, AttestListAdapter adapter, Context context, UsersFragment.userinterface Listener) {
+    public UsersViewHolder(@NonNull final View itemView, PopupWindow popupWindow, List<Attestation> attestationList, AttestListAdapter adapter, Context context, UsersFragment.userinterface Listener) {
         super(itemView);
         mTitle = itemView.findViewById(R.id.userText);
         mCheckBox = itemView.findViewById(R.id.userCheckBox);
+        mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                setVisibility();
+            }
+        });
         mOnClickListener = Listener;
         this.mAdapter = adapter;
         this.mAttestationList = attestationList;
         this.mContext = context;
+        this.mPopupWindow = popupWindow;
 
         itemView.setOnClickListener(this);
     }
@@ -58,22 +69,16 @@ public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnC
 
     @Override
     public void onClick(View view) {
-        if (mContext != null)
-        {
+        if (mContext != null) {
+            //click on user in new attest
+            Log.i("My TAG", "New from user");
             mOnClickListener.onUserInteraction(mAttestationList, mAdapter, mContext, user);
-            Log.i("My TAG", "CLICK on " + user.getName());
+            mPopupWindow.dismiss();
         }
-        else
-        {
-            setVisibility();
+        else {
+            //click on user in Mes utilisateurs
+            mCheckBox.setChecked(!mCheckBox.isChecked());
         }
-    }
-
-    public void bind(User user) {
-        if (user.isCheckBoxVisible)
-            mCheckBox.setVisibility(View.VISIBLE);
-        if (mCheckBox.isChecked())
-            user.setChecked(true);
     }
 
     public void setVisibility() {
@@ -85,6 +90,9 @@ public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnC
             user.setChecked(true);
         else
             user.setChecked(false);
+     /*   Log.i("My TAG", "holder set visibil to: " + user.isCheckBoxVisible());
         Log.i("My TAG", "holder set checked to: " + user.isChecked());
+        Log.i("My TAG", "--");
+        */
     }
 }

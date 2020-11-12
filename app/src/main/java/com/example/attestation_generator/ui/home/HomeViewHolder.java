@@ -41,10 +41,6 @@ public class HomeViewHolder extends RecyclerView.ViewHolder{
     {
         return mcontent;
     }
-
-    public File getMyPdf() {
-        return myPdf;
-    }
     public void setMyPdf(File pdf_file) {
         myPdf = pdf_file;
     }

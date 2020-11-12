@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupWindow;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ListAdapter;
@@ -23,21 +24,15 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersViewHolder> {
     private List<Attestation> mAttestationList;
     private AttestListAdapter mAdapter;
     private Context mcontext;
+    private PopupWindow mPopupWindow;
 
-    public UsersListAdapter(List<Attestation> attestationList, AttestListAdapter adapter, Context context, List<User> UserList, UsersFragment.userinterface onClickListener) {
+    public UsersListAdapter(PopupWindow popupWindow, List<Attestation> attestationList, AttestListAdapter adapter, Context context, List<User> UserList, UsersFragment.userinterface onClickListener) {
         this.mUserList = UserList;
         this.mOnClickListener = onClickListener;
         this.mAttestationList = attestationList;
         this.mAdapter = adapter;
         this.mcontext = context;
-    }
-
-    public interface OnItemClickListener {
-        public void onItemClicked(int position);
-    }
-
-    public interface OnItemLongClickListener {
-        public boolean onItemLongClicked(int position);
+        this.mPopupWindow = popupWindow;
     }
 
     @NonNull
@@ -46,12 +41,11 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersViewHolder> {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.fragment_user_item, parent, false);
-        return new UsersViewHolder(view, mAttestationList, mAdapter, mcontext, mOnClickListener);
+        return new UsersViewHolder(view, mPopupWindow, mAttestationList, mAdapter, mcontext, mOnClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull UsersViewHolder holder, int position) {
-        Log.i("My TAG", "BIND:  " + this.mUserList.get(position).getName());
         holder.getTitle().setText(this.mUserList.get(position).getName());
         holder.setUser(this.mUserList.get(position));
         holder.setVisibility();

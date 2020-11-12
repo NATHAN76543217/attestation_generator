@@ -47,17 +47,11 @@ public class AttestListAdapter extends RecyclerView.Adapter<HomeViewHolder> {
         holder.getTitleView().setText(this.mAttestationList.get(position).getFileName());
         holder.getContentView().setText(this.mAttestationList.get(position).getCreationDate());
         holder.setMyPdf(this.mAttestationList.get(position).getPDF_file());
-        Log.i("My TAG", String.format("Bind title = |%s| && content = |%s|", holder.getTitleView().getText(), holder.getContentView().getText()));
     }
 
     @Override
     public int getItemCount() {
         return this.mAttestationList.size();
-    }
-
-    public List<Attestation> getAttestationList()
-    {
-        return this.mAttestationList;
     }
 
 }

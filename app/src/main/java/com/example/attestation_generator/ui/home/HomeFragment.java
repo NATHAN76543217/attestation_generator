@@ -156,33 +156,22 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
     }
 
     private static Hashtable fillPDF(Context context, Hashtable dic) throws DocumentException {
-        //TODO remove comment
-
-        /*        Log.i("My TAG", "Name = " + dic.get("Name"));
-        Log.i("My TAG", "City = " + dic.get("City"));
-        Log.i("My TAG", "Adresse = " + dic.get("Adresse"));
-        Log.i("My TAG", "Birthplace = " + dic.get("Birthplace"));
-        Log.i("My TAG", "Birthday = " + dic.get("Birthday"));
-  */
-        //template pdf
+        //copy template pdf
         Document document = (Document )dic.get("Document");
         OutputStream output = (OutputStream) dic.get("Output");
         PdfWriter writer = PdfWriter.getInstance(document, output);
         document.open();
         PdfReader reader = null;
         try {
-            //reader == src
             reader = new PdfReader(context.getExternalFilesDir("").getPath() + File.separator + context.getString(R.string.pdfTemplateName));
         } catch (IOException e) {
             Log.e("My TAG", "template pdf not found");
             e.printStackTrace();
         }
         // Copy all the template page's
-        int n = reader.getNumberOfPages();
-        PdfImportedPage page;
-        for (int i = 1; i <= n; i++) {
+        for (int i = 1; i <= reader.getNumberOfPages(); i++) {
             document.newPage();
-            page = writer.getImportedPage(reader, i);
+            PdfImportedPage page = writer.getImportedPage(reader, i);
             writer.getDirectContent().addTemplate(page, 0, 0);
         }
 
@@ -191,13 +180,13 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
         float name_y = document.top() - 112; //806 - y
 
         float birthday_x = document.left() + 85 + 5; // 36 + x
-        float birthday_y = document.top() - 135; //806 - y
+        float birthday_y = document.top() - 132;
 
         float birthplace_x = document.left() + 265;
-        float birthplace_y = document.top() - 135;
+        float birthplace_y = document.top() - 132;
 
-        float adresse_x = document.left() + 85;
-        float adresse_y = document.top() - 150;
+        float adresse_x = document.left() + 100;
+        float adresse_y = document.top() - 155;
 
         float city_x = document.left() + 82;
         float city_y = document.bottom() + 138;
@@ -213,7 +202,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
         printOnPdf(content, (String) dic.get("Name"), new Rectangle(name_x, name_y, name_x + 200, name_y + 20));
         printOnPdf(content, (String) dic.get("Birthday"), new Rectangle(birthday_x, birthday_y, birthday_x + 80, birthday_y + 20));
         printOnPdf(content, (String) dic.get("Birthplace"), new Rectangle(birthplace_x, birthplace_y, birthplace_x + 80, birthplace_y + 20));
-        printOnPdf(content, (String) dic.get("Adresse"), new Rectangle(adresse_x, adresse_y, adresse_x + 80, adresse_y + 20));
+        printOnPdf(content, (String) dic.get("Adresse"), new Rectangle(adresse_x, adresse_y, adresse_x + 380, adresse_y + 20));
         printOnPdf(content, (String) dic.get("City"), new Rectangle(city_x, city_y, city_x + 80, city_y + 20));
         printOnPdf(content, (String) dic.get("Date"), new Rectangle(date_x, date_y, date_x + 80, date_y + 20));
         printOnPdf(content, (String) dic.get("Time"), new Rectangle(time_x, time_y, time_x + 80, time_y + 20));
@@ -249,7 +238,6 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
         fromNew.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
-                                            Log.i("Debug", "showpopUp");
                                             popupWindow.dismiss();
                                             popupWindow.setContentView(popupNewView);
                                             popUpNew(anchorView, popupWindow, popupNewView);
@@ -273,6 +261,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
         popupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY,
                 location[0], location[1] + anchorView.getHeight());
     }
+
     public void popUpUser(final View anchorView , final PopupWindow popupWindow)
     {
         View userView = getLayoutInflater().inflate(R.layout.pop_up_user_layout, null);
@@ -284,7 +273,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
         List<User> userList = new ArrayList<>();
         UsersFragment.fillUsersList(getContext(), userList);
         Log.i("My TAG", "user list size = " + userList.size());
-        UsersListAdapter UsersAdapter = new UsersListAdapter(mAttestationList, adapter, getContext(), userList, mUserListener);
+        UsersListAdapter UsersAdapter = new UsersListAdapter(popupWindow, mAttestationList, adapter, getContext(), userList, mUserListener);
         userRecycler.setAdapter(UsersAdapter);
 
     }

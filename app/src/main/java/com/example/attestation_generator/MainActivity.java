@@ -158,6 +158,5 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFI
         dic.put("Date", new SimpleDateFormat("dd / MM / YYYY").format(now));
         dic.put("Time", new SimpleDateFormat("HH mm").format(now));
         HomeFragment.newPdf(attestationList, adapter, context, dic);
-        Log.i("My TAG", "New from user");
     }
 }

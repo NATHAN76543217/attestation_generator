@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory android:title="Réseau">
+
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Luminosité">
+
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Couleurs">
+
+    </PreferenceCategory>
+</PreferenceScreen>

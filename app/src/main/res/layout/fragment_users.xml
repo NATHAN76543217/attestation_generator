@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/usersView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:scrollbars="vertical"
+            />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/usersBTsub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sub_user"
+        android:layout_above="@id/usersBTadd"
+        />
+    <Button
+        android:id="@+id/usersBTadd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_user"
+        android:layout_alignParentBottom="true"
+        />
+    <Button
+        android:id="@+id/userDeleteBt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Supprimer"
+        android:layout_alignBottom="@id/usersBTadd"
+        android:layout_alignTop="@id/usersBTsub"
+        android:visibility="gone"
+        />
+
+</RelativeLayout>

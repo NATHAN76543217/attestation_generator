@@ -1,0 +1,48 @@
+<resources>
+
+    <!--App-->
+    <string name="app_name">attestation_generator</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Parametres</string>
+<!-- NavigationBar-->
+    <string name="menu_home">Mes attestations</string>
+    <string name="menu_users">Mes Utilisateurs</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">MyTools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <!-- PDF-->
+    <string name="pdfTemplateName">template.pdf</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_display_pdf">displayPdf</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <!--PopUp-->
+    <string name="validation">Valider</string>
+    <string name="popUpTitle">Nouvelle attestation</string>
+    <string name="popUpName">Entrez votre nom:</string>
+    <string name="popUpGetName">Nom Prenom</string>
+    <string name="popUpBirthday">Entrez votre date de naissance:</string>
+    <string name="popUpBirthplace">Entrez votre lieu de naissance</string>
+    <string name="popUpGetBirthplace">Né(e) à:</string>
+    <string name="popUpCity">Entrez votre ville:</string>
+    <string name="popUpGetCity">Fait à:</string>
+    <string name="popUpAdresse">Entrez votre adresse:</string>
+    <string name="popUpGetAdresse">ex: 11 rue Jules Robert</string>
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <!--User-->
+    <string name="add_user">Ajouter un utilisateur</string>
+    <string name="sub_user">Supprimer un utilisateur</string>
+    <!--NewUser-->
+    <string name="newUserTitle">Nouvel utilisateur</string>
+    <string name="newUserBt">Crée</string>
+</resources>

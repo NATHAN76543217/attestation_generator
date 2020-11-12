@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorAlphaBlack">#54000000</color>
+    <color name="colorLightGrey">#D0DDDDDD</color>
+    <color name="colorRedLight">#CEE85757</color>
+    <color name="colorBrightRed">#CE972323</color>
+    <color name="colorDarkGrey">#615858</color>
+    <color name="colorwhite">#FFFFFF</color>
+    <!--PopUp-->
+    <color name="colorPopUpSubtitle">@color/colorBlack</color>
+</resources>

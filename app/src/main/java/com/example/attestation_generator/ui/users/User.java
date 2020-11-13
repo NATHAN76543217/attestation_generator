@@ -19,6 +19,7 @@ public class User implements Serializable {
     private String mCity;
     private Boolean isChecked = false;
     public Boolean isCheckBoxVisible = false;
+    public Boolean isAutoCreate = false;
 
     public User(Hashtable dic)
     {
@@ -68,5 +69,10 @@ public class User implements Serializable {
 
     public void setCheckBoxVisible(Boolean checkBoxVisible) {
         isCheckBoxVisible = checkBoxVisible;
+    }
+
+    public void setIsAutoCreate(Boolean AutoCreate)
+    {
+        this.isAutoCreate = AutoCreate;
     }
 }

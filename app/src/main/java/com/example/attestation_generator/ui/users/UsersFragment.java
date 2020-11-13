@@ -190,9 +190,10 @@ public class UsersFragment extends Fragment {
         Integer nbUsers = preferences.getInt("nbUsers", 0);
         for (int i = 0; i < nbUsers; i++)
         {
-            Log.i("My TAG", "Load user: " + i);
             String Loaded_user = preferences.getString("user" + i, "null");
             UserList.add(new User(Loaded_user));
+            //Log.i("My TAG", "Load user: " + UserList.get(i).getName());
+
         }
     }
 

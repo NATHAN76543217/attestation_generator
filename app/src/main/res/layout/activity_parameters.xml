@@ -5,11 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.parameters.parameters">
-
+<ViewSwitcher
+    android:id="@+id/paramSwitcher"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
     <ListView
         android:id="@+id/paramListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
+    <include
+        layout="@layout/param_user_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</ViewSwitcher>
+
 
 </LinearLayout>

@@ -47,4 +47,9 @@
     <string name="newUserBt">Crée</string>
     <!--Parameters-->
     <string name="parameters">Parametres</string>
+    <string name="paramBack">Valider</string>
+    <string name="auto_create">Création automatique</string>
+    <string name="create_for_users">Profils concernés par la création auto.</string>
+    <string name="paramAutoCreate">Génére une attestation datant de 30minutes lors de l\'ouverture de l\'application</string>
+    <string name="paramUserList">Liste des utilisateurs pour la génération automatique</string>
 </resources>

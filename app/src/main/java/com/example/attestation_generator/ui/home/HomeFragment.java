@@ -11,11 +11,14 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,7 +61,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment implements OnLoadCompleteListener, OnPageChangeListener, OnPageErrorListener {
+public class HomeFragment extends Fragment implements OnLoadCompleteListener, OnPageChangeListener, OnPageErrorListener, AdapterView.OnItemSelectedListener {
 
     private RecyclerView mRecyclerView;
     private List<Attestation> mAttestationList;
@@ -284,6 +287,12 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
 
         final TextView Ttitle = (TextView) popupView.findViewById(R.id.popUpTitle);
         Ttitle.setText(R.string.popUpTitle);
+        Spinner spin = (Spinner) popupView.findViewById(R.id.popUpSpinner);
+        spin.setOnItemSelectedListener(this);
+        spin.setVisibility(View.VISIBLE);
+        String[] motifs = { "Deplacement professionnel", "Achat de premiere necessité", "Raison médical", "Déplacement famillial", "déplacement bref/activité sportive", "Convocation judiciaire", "mission d'intérêt général", "Déplacement pour les enfants"};
+        ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, motifs);
+        spin.setAdapter(aa);
         final EditText EName = (EditText) popupView.findViewById(R.id.popUpGetName);
         final EditText ECity = (EditText) popupView.findViewById(R.id.popUpGetCity);
         final EditText EAdresse = (EditText) popupView.findViewById(R.id.popUpGetAdresse);
@@ -389,6 +398,16 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
         super.onDetach();
         mclickListener = null;
         mUserListener = null;
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 
     public interface OnFIL{

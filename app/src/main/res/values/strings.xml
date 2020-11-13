@@ -8,7 +8,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Parametres</string>
-<!-- NavigationBar-->
+    <!-- NavigationBar-->
     <string name="menu_home">Mes attestations</string>
     <string name="menu_users">Mes Utilisateurs</string>
     <string name="menu_slideshow">Slideshow</string>
@@ -45,4 +45,6 @@
     <!--NewUser-->
     <string name="newUserTitle">Nouvel utilisateur</string>
     <string name="newUserBt">Crée</string>
+    <!--Parameters-->
+    <string name="parameters">Parametres</string>
 </resources>

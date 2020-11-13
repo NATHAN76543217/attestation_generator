@@ -6,18 +6,19 @@
     android:gravity="center"
     android:background="@color/colorAlphaBlack"
     >
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         >
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="5dp"
-        android:elevation="20dp"
-    >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="5dp"
+                android:elevation="20dp">
 
         <LinearLayout
             android:padding="10dp"
@@ -37,6 +38,13 @@
                 android:padding="10dp"
                 android:textColor="@color/colorBlack"
                 />
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/popUpSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                />
+
             <TextView
                 android:layout_gravity="left"
                 android:layout_width="wrap_content"
@@ -55,6 +63,9 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/popUpGetName"
                 android:minWidth="300dp"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+
                 />
 
             <TextView
@@ -72,6 +83,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/popUpGetCity"
                 android:minWidth="300dp"
+                android:singleLine="true"
+
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -87,6 +100,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/popUpGetAdresse"
                 android:minWidth="300dp"
+                android:singleLine="true"
+
                 />
 
             <TextView
@@ -103,6 +118,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/popUpGetBirthplace"
                 android:minWidth="300dp"
+                android:imeOptions="actionDone"
+                android:singleLine="true"
                 />
 
             <TextView
@@ -129,9 +146,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
-
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-</LinearLayout>
+    </ScrollView>
 </LinearLayout>

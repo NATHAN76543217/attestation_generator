@@ -53,6 +53,5 @@ public class displayPdf extends AppCompatActivity {
                 .spacing(0)
                 .load();
         Log.i("My TAG", "DISPLAY PDF");
-
     }
 }

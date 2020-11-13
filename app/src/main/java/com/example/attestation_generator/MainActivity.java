@@ -10,6 +10,7 @@ import com.example.attestation_generator.pdf.displayPdf;
 import com.example.attestation_generator.ui.attestations.Attestation;
 import com.example.attestation_generator.ui.home.AttestListAdapter;
 import com.example.attestation_generator.ui.home.HomeFragment;
+import com.example.attestation_generator.ui.parameters.parameters;
 import com.example.attestation_generator.ui.users.User;
 import com.example.attestation_generator.ui.users.UsersFragment;
 import com.example.attestation_generator.ui.users.UsersListAdapter;
@@ -18,8 +19,10 @@ import com.google.android.material.snackbar.Snackbar;
 
 import android.os.Environment;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -126,6 +129,18 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFI
     }
 
     @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.optParametres:
+                openParameters();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
@@ -158,5 +173,9 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFI
         dic.put("Date", new SimpleDateFormat("dd / MM / YYYY").format(now));
         dic.put("Time", new SimpleDateFormat("HH mm").format(now));
         HomeFragment.newPdf(attestationList, adapter, context, dic);
+    }
+    private void openParameters() {
+        Intent intent = new Intent(this, parameters.class);
+        startActivity(intent);
     }
 }

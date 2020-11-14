@@ -30,6 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.attestation_generator.R;
 import com.example.attestation_generator.ui.attestations.Attestation;
+import com.example.attestation_generator.ui.attestations.AttestationFactory;
 import com.example.attestation_generator.ui.users.User;
 import com.example.attestation_generator.ui.users.UsersFragment;
 import com.example.attestation_generator.ui.users.UsersListAdapter;
@@ -108,7 +109,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
         else {
             // has the permission.
             Log.i("My TAG", "Write Permission granted");
-            File folder = getPdfFolder(getContext());
+            File folder = AttestationFactory.getPdfFolder(getContext());
             File files[] = folder.listFiles();
             Context ctx = getContext();
             Log.i("My TAG", "Files: Get all files in pdf directory");
@@ -131,98 +132,6 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
 
         }
 
-    }
-
-    static private Hashtable createPDF(Context context, Hashtable dic) throws FileNotFoundException, DocumentException {
-
-        File pdfFolder = getPdfFolder(context);
-
-        //Choose new file name
-        Date date = new Date();
-        String timehour = new SimpleDateFormat("HH").format(date);
-        String timemin = new SimpleDateFormat("mm").format(date);
-        String strName = dic.get("Name") + "_" + timehour + "h" + timemin + ".pdf";
-        String pathname = pdfFolder + "/" + strName;
-        Log.i("My TAG", String.format("Files: Create PDF: %s", strName));
-
-        File NewPDF = new File(pathname);
-        //Step 2 nouvelle attestation
-        Document document = new Document();
-        OutputStream output = new FileOutputStream(NewPDF);
-        //writer == dest
-
-        dic.put("Document", document);
-        dic.put("Output", output);
-        dic.put("PDF", NewPDF);
-        dic.put("fileName", strName);
-        return fillPDF(context, dic);
-    }
-
-    private static Hashtable fillPDF(Context context, Hashtable dic) throws DocumentException {
-        //copy template pdf
-        Document document = (Document )dic.get("Document");
-        OutputStream output = (OutputStream) dic.get("Output");
-        PdfWriter writer = PdfWriter.getInstance(document, output);
-        document.open();
-        PdfReader reader = null;
-        try {
-            reader = new PdfReader(context.getExternalFilesDir("").getPath() + File.separator + context.getString(R.string.pdfTemplateName));
-        } catch (IOException e) {
-            Log.e("My TAG", "template pdf not found");
-            e.printStackTrace();
-        }
-        // Copy all the template page's
-        for (int i = 1; i <= reader.getNumberOfPages(); i++) {
-            document.newPage();
-            PdfImportedPage page = writer.getImportedPage(reader, i);
-            writer.getDirectContent().addTemplate(page, 0, 0);
-        }
-
-        //Texts position in pdf
-        float name_x = document.left() + 85 + 5; // 36 + x
-        float name_y = document.top() - 112; //806 - y
-
-        float birthday_x = document.left() + 85 + 5; // 36 + x
-        float birthday_y = document.top() - 132;
-
-        float birthplace_x = document.left() + 265;
-        float birthplace_y = document.top() - 132;
-
-        float adresse_x = document.left() + 100;
-        float adresse_y = document.top() - 155;
-
-        float city_x = document.left() + 82;
-        float city_y = document.bottom() + 138;
-
-        float date_x = document.left() + 82;
-        float date_y = document.bottom() + 114;
-
-        float time_x = document.left() + 223;
-        float time_y = document.bottom() + 114;
-
-        //TODO verifier position de adresse
-        PdfContentByte content = writer.getDirectContent();
-        printOnPdf(content, (String) dic.get("Name"), new Rectangle(name_x, name_y, name_x + 200, name_y + 20));
-        printOnPdf(content, (String) dic.get("Birthday"), new Rectangle(birthday_x, birthday_y, birthday_x + 80, birthday_y + 20));
-        printOnPdf(content, (String) dic.get("Birthplace"), new Rectangle(birthplace_x, birthplace_y, birthplace_x + 80, birthplace_y + 20));
-        printOnPdf(content, (String) dic.get("Adresse"), new Rectangle(adresse_x, adresse_y, adresse_x + 380, adresse_y + 20));
-        printOnPdf(content, (String) dic.get("City"), new Rectangle(city_x, city_y, city_x + 80, city_y + 20));
-        printOnPdf(content, (String) dic.get("Date"), new Rectangle(date_x, date_y, date_x + 80, date_y + 20));
-        printOnPdf(content, (String) dic.get("Time"), new Rectangle(time_x, time_y, time_x + 80, time_y + 20));
-
-        //Step 5: Close the document
-        if (document != null)
-            document.close();
-        if (reader != null)
-            reader.close();
-        return dic;
-    }
-
-    private static void printOnPdf(PdfContentByte content, String text, Rectangle rect) throws DocumentException {
-        ColumnText ct = new ColumnText(content);
-        ct.setSimpleColumn(rect);
-        ct.addElement(new Paragraph(text));
-        ct.go();
     }
 
     public void choosePopup(final View anchorView)
@@ -282,16 +191,12 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
     }
 
     public void popUpNew(final View anchorView , final PopupWindow popupWindow, final View popupView) {
-
-        Log.i("Debug", "set");
-
+        //link items
         final TextView Ttitle = (TextView) popupView.findViewById(R.id.popUpTitle);
+        final Spinner spin = (Spinner) popupView.findViewById(R.id.popUpSpinner);
         Ttitle.setText(R.string.popUpTitle);
-        Spinner spin = (Spinner) popupView.findViewById(R.id.popUpSpinner);
-        spin.setOnItemSelectedListener(this);
-        spin.setVisibility(View.VISIBLE);
-        String[] motifs = { "Deplacement professionnel", "Achat de premiere necessité", "Raison médical", "Déplacement famillial", "déplacement bref/activité sportive", "Convocation judiciaire", "mission d'intérêt général", "Déplacement pour les enfants"};
-        ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, motifs);
+        //spin.setOnItemSelectedListener(this);
+        ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.popUp_motifs));
         spin.setAdapter(aa);
         final EditText EName = (EditText) popupView.findViewById(R.id.popUpGetName);
         final EditText ECity = (EditText) popupView.findViewById(R.id.popUpGetCity);
@@ -310,6 +215,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
                     return;
                 }
                 Hashtable dic = new Hashtable();
+                dic.put("Motif", String.valueOf(spin.getSelectedItemId()));
                 dic.put("Name", EName.getText().toString());
                 dic.put("Birthday", datepicker.getDayOfMonth() + " / " + (datepicker.getMonth() + 1) + " / " + datepicker.getYear());
                 dic.put("Birthplace", EBirthplace.getText().toString());
@@ -318,22 +224,16 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
                 Date now = new Date();
                 dic.put("Date", new SimpleDateFormat("dd / MM / YYYY").format(now));
                 dic.put("Time", new SimpleDateFormat("HH mm").format(now));
-                newPdf(mAttestationList, adapter, getContext(), dic);
+                addNewPdf(mAttestationList, adapter, getContext(), dic);
                 popupWindow.dismiss();
             }
         });
     }
 
-    public static void newPdf(List<Attestation> AttestationList, AttestListAdapter adapter, Context context, Hashtable dic)
+    public static void addNewPdf(List<Attestation> AttestationList, AttestListAdapter adapter, Context context, Hashtable dic)
     {
-        try {
-            AttestationList.add(new Attestation(context, createPDF(context, dic)));
-            Log.i("My TAG", "Files: new file with popUp.");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        }
+        AttestationList.add(AttestationFactory.newAttestation(context, dic));
+        Log.i("My TAG", "Files: new file with popUp.");
         //trie mAttestation de la plus recente a la plus ancienne
         Collections.sort(AttestationList, new Comparator<Attestation>() {
             @Override
@@ -346,20 +246,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
         adapter.notifyDataSetChanged();
         adapter.notifyItemInserted(AttestationList.size() - 1);
     }
-    public static File getPdfFolder(Context context)
-    {
-        File pdfFolder = new File(context.getExternalFilesDir(""), "mes attestations/");
-        if (!pdfFolder.exists()) {
-            if (pdfFolder.mkdir())
-                Log.i("My TAG", String.format("Pdf Directory <%s> created", pdfFolder.getName()));
-            else
-            {
-                Log.e("My TAG", String.format("Pdf Directory <%s> creation failed", pdfFolder.getName()));
-                return null;
-            }
-        }
-        return pdfFolder;
-    }
+
     @Override
     public void loadComplete(int nbPages) {
 

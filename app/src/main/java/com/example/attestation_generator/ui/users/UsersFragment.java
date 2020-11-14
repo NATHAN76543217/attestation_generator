@@ -10,11 +10,13 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -117,6 +119,10 @@ public class UsersFragment extends Fragment {
 
         TextView title = (TextView) popupView.findViewById(R.id.popUpTitle);
         title.setText(R.string.newUserTitle);
+        final Spinner  Espin = (Spinner) popupView.findViewById(R.id.popUpSpinner);
+        //Espin.setOnItemSelectedListener(this);
+        ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.popUp_motifs));
+        Espin.setAdapter(aa);
         final EditText EName = (EditText) popupView.findViewById(R.id.popUpGetName);
         final EditText ECity = (EditText) popupView.findViewById(R.id.popUpGetCity);
         final EditText EAdresse = (EditText) popupView.findViewById(R.id.popUpGetAdresse);
@@ -135,11 +141,13 @@ public class UsersFragment extends Fragment {
                 }
                 //create dic and fill it
                 Hashtable dic = new Hashtable();
+                dic.put("Motif", String.valueOf(Espin.getSelectedItemId()));
                 dic.put("Name", EName.getText().toString());
                 dic.put("Birthday", datepicker.getDayOfMonth() + " / " + (datepicker.getMonth() + 1) + " / " + datepicker.getYear());
                 dic.put("Birthplace", EBirthplace.getText().toString());
                 dic.put("Adresse", EAdresse.getText().toString());
                 dic.put("City", ECity.getText().toString().substring(0, 1).toUpperCase() + ECity.getText().toString().substring(1));
+
                 User newU = new User(dic);
                 mUsersList.add(newU);
                 //enregistrement des users
@@ -170,6 +178,7 @@ public class UsersFragment extends Fragment {
         SharedPreferences.Editor edit = preferences.edit();
         //add a new set
         String user_save = "";
+        user_save += newU.getDefaultMotif() + ";";
         user_save += newU.getName() + ";";
         user_save += newU.getBirthday() + ";";
         user_save += newU.getBirthplace() + ";";

@@ -21,11 +21,11 @@ public class Param {
             this.mType = type;
             this.mDescription = description;
             this.mEditor = pref.edit();
-            loadParam();
+            loadParams();
 
         }
 
-        private void loadParam()
+        private void loadParams()
         {
             switch (mType)
             {
@@ -65,4 +65,19 @@ public class Param {
         {
             this.Value = value;
         }
+    static public Object loadParam(SharedPreferences prefs, String name, String type)
+    {
+        switch (type)
+        {
+            case INT :
+                return prefs.getInt("param_" + name, 0);
+            case STRING:
+                return prefs.getString("param_" + name, "null");
+            case BOOLEAN:
+                return prefs.getBoolean("param_" + name, false);
+            default:
+                Log.e("My TAG", "Param Type: No match found");
+        }
+        return null;
     }
+}

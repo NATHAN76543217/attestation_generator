@@ -28,6 +28,7 @@
     <!--PopUp-->
     <string name="validation">Valider</string>
     <string name="popUpTitle">Nouvelle attestation</string>
+    <string name="popUpMotif">Selectionnez votre motif:</string>
     <string name="popUpName">Entrez votre nom:</string>
     <string name="popUpGetName">Nom Prenom</string>
     <string name="popUpBirthday">Entrez votre date de naissance:</string>
@@ -39,6 +40,17 @@
     <string name="popUpGetAdresse">ex: 11 rue Jules Robert</string>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string-array name="popUp_motifs">
+        <item>Déplacement professionnel</item>
+        <item>Achat de première nécessité</item>
+        <item>Raison médicale</item>
+        <item>Déplacement famillial</item>
+        <item>Déplacement bref/activité sportive</item>
+        <item>Déplacement des personnes en situation de handicap et accompagnant</item>
+        <item>Convocation judiciaire</item>
+        <item>Mission d\'intérêt général</item>
+        <item>Déplacement pour les enfants</item>
+    </string-array>
     <!--User-->
     <string name="add_user">Ajouter un utilisateur</string>
     <string name="sub_user">Supprimer un utilisateur</string>

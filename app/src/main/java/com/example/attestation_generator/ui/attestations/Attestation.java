@@ -30,6 +30,7 @@ public class Attestation {
     private File    PDF_file;
     private String  filepath;
     private String  fileName;
+    private String motif;
     private int     Date;
     private int     id;
     private Context context;

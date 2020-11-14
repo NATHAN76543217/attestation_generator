@@ -104,6 +104,12 @@ public class parameters extends AppCompatActivity {
         return 0;
     }
 
+//TODO virer bouton from user popup
+    //DONE ajouter la création de fichier automatique
+    //TODO ajouter suppression des fichiers pdf
+    //TODO ajouter tick in pdf
+    //TODO popup back button
+    //TODO deplacer le dismiss windows du popup from user
 
     private List<User> LoadUserList(List<Param> paramList) {
         List<User> userList;
@@ -254,7 +260,6 @@ public class parameters extends AppCompatActivity {
 
             //(3) : Renseignement des valeurs
             usr_name.setText(mUserList.get(position).getName());
-            Log.i("My TAG", "check is" + usr.isAutoCreate);
             usr_checkbox.setChecked(usr.isAutoCreate);
             usr_checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

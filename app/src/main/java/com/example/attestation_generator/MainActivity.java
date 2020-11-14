@@ -2,14 +2,17 @@ package com.example.attestation_generator;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 
 import com.example.attestation_generator.pdf.displayPdf;
 import com.example.attestation_generator.ui.attestations.Attestation;
+import com.example.attestation_generator.ui.attestations.AttestationFactory;
 import com.example.attestation_generator.ui.home.AttestListAdapter;
 import com.example.attestation_generator.ui.home.HomeFragment;
+import com.example.attestation_generator.ui.parameters.Param;
 import com.example.attestation_generator.ui.parameters.parameters;
 import com.example.attestation_generator.ui.users.User;
 import com.example.attestation_generator.ui.users.UsersFragment;
@@ -18,6 +21,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,6 +42,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
+import android.widget.ArrayAdapter;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -48,6 +53,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
@@ -78,13 +84,11 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFI
         //ADD template.pdf
         File file = new File(getExternalFilesDir("") + java.io.File.separator + "template.pdf");
         if (!file.exists()) {
-            Log.i("My TAG", String.format("template pdf not found at: %s", file.getPath()));
-            Log.i("My TAG", "Create it");
+            Log.i("My TAG", "Create pdf template file in storage");
             AssetManager assetManager = getAssets();
             InputStream in = null;
             OutputStream out = null;
             try {
-                Log.i("My TAG", "here4");
                 in = assetManager.open(getString(R.string.pdfTemplateName));
                 Log.i("My TAG", String.format("Copy: %s", in.toString()));
                 out = new FileOutputStream(file);
@@ -110,7 +114,35 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFI
             }
         }
         else
-            Log.i("My TAG", String.format("template pdf exist at: %s", file.getPath()));
+            Log.i("My TAG", "template pdf already exist in storage");
+        //uncomment to start with empty SharedPreferences
+        //PreferenceManager.getDefaultSharedPreferences(this).edit().clear().apply();
+        auto_create_attestations();
+    }
+
+    private void auto_create_attestations() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        //récupere parametre auto_creare
+        Boolean auto_create = (Boolean) Param.loadParam(preferences, getString(R.string.auto_create), Param.BOOLEAN);
+        if (auto_create == false)
+            return ;
+
+        //récupere list user
+        List<User> userList = new ArrayList<>();
+        UsersFragment.fillUsersList(this, userList);
+
+        //recupere parametre list user
+        String users_str = (String) Param.loadParam(preferences, getString(R.string.create_for_users), Param.STRING);
+
+        // crée pour chaque user
+        for (User user : userList)
+        {
+            if (users_str.contains(";" + user.getName() + ";"))
+            {
+                Log.i("My TAG", "create auto for user " + user);
+                AttestationFactory.newAttestation(this, user.getDic(true));
+            }
+        }
     }
 
     private void copyFile(InputStream in, OutputStream out) throws IOException {
@@ -164,6 +196,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFI
     @Override
     public void onUserInteraction(List<Attestation> attestationList, AttestListAdapter adapter, Context context, User user) {
         Hashtable dic = new Hashtable();
+        dic.put("Motif", user.getDefaultMotif());
         dic.put("Name", user.getName());
         dic.put("Birthday", user.getBirthday());
         dic.put("Birthplace", user.getBirthplace());
@@ -172,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFI
         Date now = new Date();
         dic.put("Date", new SimpleDateFormat("dd / MM / YYYY").format(now));
         dic.put("Time", new SimpleDateFormat("HH mm").format(now));
-        HomeFragment.newPdf(attestationList, adapter, context, dic);
+        HomeFragment.addNewPdf(attestationList, adapter, context, dic);
     }
     private void openParameters() {
         Intent intent = new Intent(this, parameters.class);

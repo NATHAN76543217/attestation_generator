@@ -32,7 +32,6 @@ public class User implements Serializable {
     public User(Hashtable dic)
     {
         mDefaultMotif = (String) dic.get("Motif");
-        Log.i("My TAG", "def motif = " + mDefaultMotif);
         mName = (String) dic.get("Name");
         mBirthday = (String) dic.get("Birthday");
         mBirthplace = (String) dic.get("Birthplace");

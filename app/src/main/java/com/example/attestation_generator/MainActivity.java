@@ -134,17 +134,19 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFI
         //recupere parametre list user
         String users_str = (String) Param.loadParam(preferences, getString(R.string.create_for_users), Param.STRING);
         String[] to_create = users_str.split(";");
-        for(String str : to_create)
-        {
+        for(String str : to_create) {
             Log.i("My TAG", "--" + str);
-        }
-        // crée pour chaque user
-        for (User user : userList)
-        {
-            if (users_str.contains(";" + user.getName() + ";"))
-            {
-                Log.i("My TAG", "create auto for user " + user);
-                AttestationFactory.newAttestation(this, user.getDic(true));
+            String value[] = str.split(":");
+            Log.i("My TAG", "0--" + value[0]);
+            Log.i("My TAG", "1--" + value[1]);
+
+            // crée pour chaque user
+            for (User user : userList) {
+                if (user.getName().equals(value[0])) {
+                    Log.i("My TAG", "create auto for user " + user);
+                    user.setDefaultMotif(value[1]);
+                    AttestationFactory.newAttestation(this, user.getDic(true));
+                }
             }
         }
     }

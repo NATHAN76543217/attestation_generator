@@ -47,17 +47,18 @@ public class parameters extends AppCompatActivity {
     List<User> userList;
     ParamAdapter mParamAdapter;
     UserAdapter mUserAdapter;
+    ViewSwitcher switcher;
+    Button bt_save;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parameters);
 
-        final ViewSwitcher switcher = findViewById(R.id.paramSwitcher);
+        this.switcher = findViewById(R.id.paramSwitcher);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(getString(R.string.parameters));
         actionBar.setDisplayHomeAsUpEnabled(true);
-
         if (getStorageRight() == 1)
             Log.i("My TAG", "Right granted!");
 
@@ -70,15 +71,15 @@ public class parameters extends AppCompatActivity {
                 switcher.showNext();
 
                 //TODO ajouter valeur de spin à la sauvegarde puis la récuperer
-                Button backBT = findViewById(R.id.paramBack);
-                backBT.setOnClickListener(new View.OnClickListener() {
+                bt_save = findViewById(R.id.paramBack);
+                bt_save.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         String value = "";
                         for (int i = 0; i < userList.size(); i++)
                         {
                             if (userList.get(i).isAutoCreate)
-                                value += userList.get(i).getName() + userList.get(i).getDefaultMotif() +";";
+                                value += userList.get(i).getName() + ":" + userList.get(i).getDefaultMotif() +";";
                         }
                         mParamList.get(position).setValue(value);
                         Log.i("My TAG", "set Ulist: " + value);
@@ -112,24 +113,27 @@ public class parameters extends AppCompatActivity {
         return 0;
     }
 
-//TODO virer bouton from user popup
+    //DONE virer bouton from user popup
     //DONE ajouter la création de fichier automatique
-    //TODO ajouter suppression des fichiers pdf
-    //TODO ajouter tick in pdf
-    //TODO popup back button
-    //TODO deplacer le dismiss windows du popup from user
+    //DONE ajouter suppression des fichiers pdf
+    //DONE ajouter tick in pdf
+    //DONE popup back button
+    //DONE deplacer le dismiss windows du popup from user
 
     private List<User> LoadUserList(List<Param> paramList) {
         List<User> userList;
         userList  = new ArrayList<>();
         UsersFragment.fillUsersList(this, userList);
         String paramValue = (String) paramList.get(1).Value;
-        for (int i = 0; i < userList.size(); i++)
-        {
-            if (paramValue.contains(";" + userList.get(i).getName() + ";"))
-            {
-                Log.i("My TAG", "FIND " + userList.get(i).getName() + " IN " + paramValue);
-                userList.get(i).setIsAutoCreate(true);
+        String[] auto_list = paramValue.split(";");
+        //récupere les uttilisateurs auto-create
+        for(String str : auto_list) {
+            String value[] = str.split(":");
+            for (User user : userList) {
+                if (user.getName().equals(value[0])) {
+                    user.setIsAutoCreate(true);
+                    user.setDefaultMotif(value[1]);
+                }
             }
         }
         return userList;
@@ -270,7 +274,8 @@ public class parameters extends AppCompatActivity {
 
             //(3) : Renseignement des valeurs
             spin.setAdapter(aa);
-            usr.setDefaultMotif(String.valueOf(spin.getSelectedItemId()));
+            Log.i("My TAG", "To check: " + usr.getDefaultMotif());
+            spin.setSelection(Integer.parseInt(usr.getDefaultMotif()));
             usr_name.setText(mUserList.get(position).getName());
             usr_checkbox.setChecked(usr.isAutoCreate);
 
@@ -301,9 +306,13 @@ public class parameters extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                this.finish();
+                if (switcher.getDisplayedChild() == 0)
+                    this.finish();
+                else
+                    bt_save.callOnClick();
                 return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 }

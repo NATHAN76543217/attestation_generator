@@ -179,7 +179,7 @@ public class UsersFragment extends Fragment {
         SharedPreferences.Editor edit = preferences.edit();
         //add a new set
         String user_save = "";
-        user_save += newU.getDefaultMotif() + ";";
+        user_save += "0;";
         user_save += newU.getName() + ";";
         user_save += newU.getBirthday() + ";";
         user_save += newU.getBirthplace() + ";";
@@ -194,6 +194,7 @@ public class UsersFragment extends Fragment {
 
         Log.i("My TAG", "user " + name + " set created");
     }
+    //charge
     public static void fillUsersList(Context context, List<User> UserList)
     {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -201,8 +202,8 @@ public class UsersFragment extends Fragment {
         for (int i = 0; i < nbUsers; i++)
         {
             String Loaded_user = preferences.getString("user" + i, "null");
+            Log.i("My TAG", "load usr:" + Loaded_user);
             UserList.add(new User(Loaded_user));
-            //Log.i("My TAG", "Load user: " + UserList.get(i).getName());
 
         }
     }

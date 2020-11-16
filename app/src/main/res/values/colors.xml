@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="navHeaderTitleColor">#FFFFFF</color>
+    <color name="navHeaderSubtitleColor">#519DED</color>
+    <color name="navHeaderBackgroundColor">#a3d7ed</color>
+
+    <color name="navMenuLightColor">#439bf2</color>
+    <color name="navMenuMediumColor">#C7EBFF</color>
+    <color name="navMenuDarkColor">#a3d7ed</color>
+
+
+
+
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>

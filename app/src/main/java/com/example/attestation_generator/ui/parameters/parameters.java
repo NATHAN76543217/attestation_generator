@@ -1,6 +1,7 @@
 package com.example.attestation_generator.ui.parameters;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -15,6 +16,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -50,7 +52,9 @@ public class parameters extends AppCompatActivity {
         setContentView(R.layout.activity_parameters);
 
         final ViewSwitcher switcher = findViewById(R.id.paramSwitcher);
-        getSupportActionBar().setTitle(getString(R.string.parameters));
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(getString(R.string.parameters));
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         if (getStorageRight() == 1)
             Log.i("My TAG", "Right granted!");
@@ -271,5 +275,15 @@ public class parameters extends AppCompatActivity {
 
             //On retourne l'item créé.
             return layoutItem;        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

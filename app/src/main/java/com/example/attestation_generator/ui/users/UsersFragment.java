@@ -59,13 +59,13 @@ public class UsersFragment extends Fragment {
         //init mUsersList
         mUsersList = new ArrayList<>();
         fillUsersList(getContext(), mUsersList);
-        this.mUsersAdapter = new UsersListAdapter(null, null, null, null, this.mUsersList, mUserListener);
+        this.mUsersAdapter = new UsersListAdapter(null, null, null, getContext(), this.mUsersList, mUserListener, btDel);
         this.mUsersView.setAdapter(this.mUsersAdapter);
         //add click listener
         btAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("My TAG", "User:\tCreate new user");
+                Log.i("My TAG", "--Create new user");
                 newUser(view);
             }
         });
@@ -119,6 +119,8 @@ public class UsersFragment extends Fragment {
 
         TextView title = (TextView) popupView.findViewById(R.id.popUpTitle);
         title.setText(R.string.newUserTitle);
+        TextView title_motif = (TextView) popupView.findViewById(R.id.popUpMotifTitle);
+        title_motif.setText(getString(R.string.popUpDefaultMotif));
         final Spinner  Espin = (Spinner) popupView.findViewById(R.id.popUpSpinner);
         //Espin.setOnItemSelectedListener(this);
         ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.popUp_motifs));
@@ -128,6 +130,13 @@ public class UsersFragment extends Fragment {
         final EditText EAdresse = (EditText) popupView.findViewById(R.id.popUpGetAdresse);
         final EditText EBirthplace = (EditText) popupView.findViewById(R.id.popUpGetBirthplace);
         final DatePicker datepicker=(DatePicker)popupView.findViewById(R.id.popUpGetBirthday);
+        Button back = (Button) popupView.findViewById(R.id.back_bt);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindow.dismiss();
+            }
+        });
         Button BT = (Button) popupView.findViewById(R.id.popUpButton);
         BT.setText(R.string.newUserBt);
         BT.setOnClickListener(new View.OnClickListener() {

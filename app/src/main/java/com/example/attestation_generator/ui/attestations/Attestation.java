@@ -48,7 +48,6 @@ public class Attestation {
                 this.mFileAttributes = Files.readAttributes(this.PDF_file.toPath(), BasicFileAttributes.class);
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy");
                 creationDate = simpleDateFormat.format(new Date(mFileAttributes.creationTime().toMillis())).toString();
-                Log.i("TIME", String.format("creation date = %s", this.creationDate));
             }
         } catch (IOException  e) {
             e.printStackTrace();
@@ -67,7 +66,6 @@ public class Attestation {
                 this.mFileAttributes = Files.readAttributes(this.PDF_file.toPath(), BasicFileAttributes.class);
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy");
                 creationDate = simpleDateFormat.format(new Date(mFileAttributes.creationTime().toMillis())).toString();
-                Log.i("TIME", String.format("creation date = %s", this.creationDate));
             }
         } catch (IOException  e) {
             e.printStackTrace();
@@ -139,6 +137,10 @@ public class Attestation {
         }
         else
             return ("PDF create");
+    }
+
+	public void deleteFile() {
+	    PDF_file.delete();
     }
 
 }

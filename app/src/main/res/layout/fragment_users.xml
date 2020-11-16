@@ -33,7 +33,7 @@
         android:id="@+id/userDeleteBt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Supprimer"
+        android:text="@string/undo"
         android:layout_alignBottom="@id/usersBTadd"
         android:layout_alignTop="@id/usersBTsub"
         android:visibility="gone"

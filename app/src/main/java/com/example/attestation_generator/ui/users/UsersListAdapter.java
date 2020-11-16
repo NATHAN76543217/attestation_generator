@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.PopupWindow;
 
 import androidx.annotation.NonNull;
@@ -25,14 +26,16 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersViewHolder> {
     private AttestListAdapter mAdapter;
     private Context mcontext;
     private PopupWindow mPopupWindow;
+    private Button mBtDel;
 
-    public UsersListAdapter(PopupWindow popupWindow, List<Attestation> attestationList, AttestListAdapter adapter, Context context, List<User> UserList, UsersFragment.userinterface onClickListener) {
+    public UsersListAdapter(PopupWindow popupWindow, List<Attestation> attestationList, AttestListAdapter adapter, Context context, List<User> UserList, UsersFragment.userinterface onClickListener, Button btDel) {
         this.mUserList = UserList;
         this.mOnClickListener = onClickListener;
         this.mAttestationList = attestationList;
         this.mAdapter = adapter;
         this.mcontext = context;
         this.mPopupWindow = popupWindow;
+        this.mBtDel = btDel;
     }
 
     @NonNull
@@ -41,7 +44,7 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersViewHolder> {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.fragment_user_item, parent, false);
-        return new UsersViewHolder(view, mPopupWindow, mAttestationList, mAdapter, mcontext, mOnClickListener);
+        return new UsersViewHolder(view, mPopupWindow, mAttestationList, mAdapter, mcontext, mOnClickListener, mBtDel, mUserList);
     }
 
     @Override
@@ -55,6 +58,7 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersViewHolder> {
     public int getItemCount() {
         return mUserList.size();
     }
+
 
 
 }

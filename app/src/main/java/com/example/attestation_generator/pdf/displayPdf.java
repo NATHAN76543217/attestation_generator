@@ -7,10 +7,14 @@ import com.github.barteksc.pdfviewer.PDFView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
 
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.attestation_generator.R;
@@ -26,10 +30,12 @@ public class displayPdf extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_pdf);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.displaytoolbar);
         setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
-
+        //actionBar.setHomeButtonEnabled(true);
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("pdf")) {
             myPdf = (File) intent.getExtras().get("pdf");
@@ -52,6 +58,6 @@ public class displayPdf extends AppCompatActivity {
                 .enableAntialiasing(true)
                 .spacing(0)
                 .load();
-        Log.i("My TAG", "DISPLAY PDF");
+        Log.i("My TAG", "--Display PDF");
     }
 }

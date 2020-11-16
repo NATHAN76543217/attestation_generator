@@ -9,6 +9,7 @@ import com.example.attestation_generator.R;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.ColumnText;
@@ -112,6 +113,9 @@ public class AttestationFactory {
         float time_x = document.left() + 223;
         float time_y = document.bottom() + 114;
 
+        float sign_x = document.left() + 93;
+        float sign_y = document.bottom() + 82;
+
         float img_x = 77f;
         int box = Integer.parseInt((String) dic.get("Motif"));
         Log.i("My TAG", "BOX: " + box);
@@ -141,6 +145,7 @@ public class AttestationFactory {
         printOnPdf(content, (String) dic.get("City"), new Rectangle(city_x, city_y, city_x + 80, city_y + 20));
         printOnPdf(content, (String) dic.get("Date"), new Rectangle(date_x, date_y, date_x + 80, date_y + 20));
         printOnPdf(content, (String) dic.get("Time"), new Rectangle(time_x, time_y, time_x + 80, time_y + 20));
+        printOnPdf(content, "digitally signed by: " +  dic.get("Name"), new Rectangle(sign_x, sign_y, sign_x + 250, sign_y + 20));
 
         //Step 5: Close the document
         if (document != null)

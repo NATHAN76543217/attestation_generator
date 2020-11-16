@@ -3,6 +3,7 @@ package com.example.attestation_generator.ui.home;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -144,7 +145,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
         location[1] = 0;
 
         final PopupWindow popupWindow = new PopupWindow(chooseView,
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         Button fromUser = (Button) chooseView.findViewById(R.id.popUpChoiceFrom);
         Button fromNew = (Button) chooseView.findViewById(R.id.popUpChoiceNew);
         fromNew.setOnClickListener(new View.OnClickListener() {
@@ -167,8 +168,8 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
         //Parameters
         popupWindow.setFocusable(true);
         // If you need the PopupWindow to dismiss when when touched outside
-        popupWindow.setBackgroundDrawable(new ColorDrawable());
-
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popupWindow.setOutsideTouchable(true);
         // Using location, the PopupWindow will be displayed right under anchorView
         popupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY,
                 location[0], location[1] + anchorView.getHeight());
@@ -184,10 +185,17 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
 
         List<User> userList = new ArrayList<>();
         UsersFragment.fillUsersList(getContext(), userList);
-        Log.i("My TAG", "user list size = " + userList.size());
-        UsersListAdapter UsersAdapter = new UsersListAdapter(popupWindow, mAttestationList, adapter, getContext(), userList, mUserListener);
+        UsersListAdapter UsersAdapter = new UsersListAdapter(popupWindow, mAttestationList, adapter, getContext(), userList, mUserListener, null);
         userRecycler.setAdapter(UsersAdapter);
 
+        Button back  = userView.findViewById(R.id.back_bt);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindow.dismiss();
+                choosePopup(anchorView);
+            }
+        });
     }
 
     public void popUpNew(final View anchorView , final PopupWindow popupWindow, final View popupView) {
@@ -226,6 +234,14 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
                 dic.put("Time", new SimpleDateFormat("HH mm").format(now));
                 addNewPdf(mAttestationList, adapter, getContext(), dic);
                 popupWindow.dismiss();
+            }
+        });
+        Button back  = popupView.findViewById(R.id.back_bt);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindow.dismiss();
+                choosePopup(anchorView);
             }
         });
     }
@@ -297,6 +313,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
 
     }
 
+    
     public interface OnFIL{
         //Par ce cette méthode le fragment va communiquer avec l'activity (lui demander dans notre cas de lancer une nouvelle activity tout en servant des données en paramètre de la méthode pour un traitement spécifique
         void onFragInteract(File data);

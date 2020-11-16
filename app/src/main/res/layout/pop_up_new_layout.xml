@@ -19,7 +19,14 @@
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="5dp"
                 android:elevation="20dp">
-
+                <Button
+                    android:id="@+id/back_bt"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/circle_button"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    />
         <LinearLayout
             android:padding="10dp"
             android:layout_width="match_parent"
@@ -39,6 +46,7 @@
                 android:textColor="@color/colorBlack"
                 />
             <TextView
+                android:id="@+id/popUpMotifTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"

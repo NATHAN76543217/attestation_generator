@@ -2,6 +2,7 @@ package com.example.attestation_generator.ui.home;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ public class HomeViewHolder extends RecyclerView.ViewHolder{
 
     private TextView mTextView;
     private TextView mcontent;
+    private ImageButton mImageButton;
     private HomeFragment.OnFIL mClickListener;
     private File myPdf;
     
@@ -25,6 +27,7 @@ public class HomeViewHolder extends RecyclerView.ViewHolder{
 
         mTextView = itemView.findViewById(R.id.item_title);
         mcontent = itemView.findViewById(R.id.item_content);
+        mImageButton = itemView.findViewById(R.id.item_cross);
         mClickListener = _clickListener;
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,5 +46,9 @@ public class HomeViewHolder extends RecyclerView.ViewHolder{
     }
     public void setMyPdf(File pdf_file) {
         myPdf = pdf_file;
+    }
+
+    public void setCrossClickListener(View.OnClickListener listener) {
+        mImageButton.setOnClickListener(listener);
     }
 }

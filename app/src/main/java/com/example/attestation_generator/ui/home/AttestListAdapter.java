@@ -43,10 +43,22 @@ public class AttestListAdapter extends RecyclerView.Adapter<HomeViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HomeViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull HomeViewHolder holder, final int position) {
         holder.getTitleView().setText(this.mAttestationList.get(position).getFileName());
         holder.getContentView().setText(this.mAttestationList.get(position).getCreationDate());
         holder.setMyPdf(this.mAttestationList.get(position).getPDF_file());
+        holder.setCrossClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Attestation theRemovedItem = mAttestationList.get(position);
+                Log.i("My TAG", "remove :" + theRemovedItem.getFileName());
+                theRemovedItem.deleteFile();
+                // remove your item from data base
+                mAttestationList.remove(position);  // remove the item from list
+                notifyItemRemoved(position); // notify the adapter about the removed item
+                notifyDataSetChanged();
+            }
+        });
     }
 
     @Override

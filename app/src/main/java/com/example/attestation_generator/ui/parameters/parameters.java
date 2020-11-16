@@ -20,12 +20,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
@@ -66,15 +68,17 @@ public class parameters extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, final int position, long ID) {
                 Log.i("My TAG", "clicked");
                 switcher.showNext();
+
+                //TODO ajouter valeur de spin à la sauvegarde puis la récuperer
                 Button backBT = findViewById(R.id.paramBack);
                 backBT.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String value = ";";
+                        String value = "";
                         for (int i = 0; i < userList.size(); i++)
                         {
                             if (userList.get(i).isAutoCreate)
-                                value += userList.get(i).getName() + ";";
+                                value += userList.get(i).getName() + userList.get(i).getDefaultMotif() +";";
                         }
                         mParamList.get(position).setValue(value);
                         Log.i("My TAG", "set Ulist: " + value);
@@ -261,17 +265,33 @@ public class parameters extends AppCompatActivity {
             //(2) : Récupération des TextView de notre layout
             TextView usr_name = (TextView)layoutItem.findViewById(R.id.paramUserName);
             CheckBox usr_checkbox = (CheckBox) layoutItem.findViewById(R.id.paramUserCheckBox);
+            Spinner spin = layoutItem.findViewById(R.id.paramUserSpin);
+            ArrayAdapter aa = new ArrayAdapter(parameters.this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.popUp_motifs));
 
             //(3) : Renseignement des valeurs
+            spin.setAdapter(aa);
+            usr.setDefaultMotif(String.valueOf(spin.getSelectedItemId()));
             usr_name.setText(mUserList.get(position).getName());
             usr_checkbox.setChecked(usr.isAutoCreate);
+
+            //(4) Les listeners
             usr_checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                     usr.setIsAutoCreate(isChecked);
                 }
             });
-            //(4) Changement de la couleur du fond de notre item
+            spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                    usr.setDefaultMotif(String.valueOf(id));
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
 
             //On retourne l'item créé.
             return layoutItem;        }

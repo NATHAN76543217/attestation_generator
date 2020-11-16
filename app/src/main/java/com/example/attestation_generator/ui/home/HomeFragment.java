@@ -180,12 +180,16 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
         View userView = getLayoutInflater().inflate(R.layout.pop_up_user_layout, null);
         popupWindow.setContentView(userView);
 
+        final Spinner spin = (Spinner) userView.findViewById(R.id.popUpUserSpin);
+        ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.popUp_motifs));
+        spin.setAdapter(aa);
+
         RecyclerView userRecycler = userView.findViewById(R.id.popUpUserList);
         userRecycler.setLayoutManager(new LinearLayoutManager(userView.getContext()));
 
         List<User> userList = new ArrayList<>();
         UsersFragment.fillUsersList(getContext(), userList);
-        UsersListAdapter UsersAdapter = new UsersListAdapter(popupWindow, mAttestationList, adapter, getContext(), userList, mUserListener, null);
+        UsersListAdapter UsersAdapter = new UsersListAdapter(popupWindow, mAttestationList, adapter, getContext(), userList, mUserListener, null, spin);
         userRecycler.setAdapter(UsersAdapter);
 
         Button back  = userView.findViewById(R.id.back_bt);

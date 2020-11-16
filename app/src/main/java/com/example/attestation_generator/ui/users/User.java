@@ -124,4 +124,8 @@ public class User implements Serializable {
     {
         this.isAutoCreate = AutoCreate;
     }
+
+    public void setDefaultMotif(String defaultMotif) {
+        mDefaultMotif = defaultMotif;
+    }
 }

@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.PopupWindow;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,8 +38,10 @@ public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnC
 	private Context mContext;
 	private PopupWindow mPopupWindow;
 	private Button mBtDel;
+	private Spinner mSpinMotif;
 
-	public UsersViewHolder(@NonNull final View itemView, PopupWindow popupWindow, List<Attestation> attestationList, AttestListAdapter adapter, Context context, UsersFragment.userinterface Listener, Button btDel, List<User> userList) {
+
+	public UsersViewHolder(@NonNull final View itemView, PopupWindow popupWindow, List<Attestation> attestationList, AttestListAdapter adapter, Context context, UsersFragment.userinterface Listener, Button btDel, List<User> userList, Spinner spin) {
 		super(itemView);
 		mTitle = itemView.findViewById(R.id.userText);
 		mCheckBox = itemView.findViewById(R.id.userCheckBox);
@@ -56,7 +59,9 @@ public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnC
 		this.mContext = context;
 		this.mPopupWindow = popupWindow;
 		this.mBtDel = btDel;
+		this.mSpinMotif = spin;
 		itemView.setOnClickListener(this);
+
 	}
 
 	public TextView getTitle() {
@@ -76,6 +81,7 @@ public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnC
 		if (mAttestationList != null) {
 			//click on user in new attest
 			Log.i("My TAG", "New from user");
+			user.setDefaultMotif(String.valueOf(mSpinMotif.getSelectedItemId()));
 			mOnClickListener.onUserInteraction(mAttestationList, mAdapter, mContext, user);
 			mPopupWindow.dismiss();
 		}

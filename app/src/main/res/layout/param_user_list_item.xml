@@ -11,7 +11,8 @@
             android:layout_height="wrap_content"
             android:textSize="25sp"
             android:layout_marginRight="60dp"
-            android:paddingVertical="9dp"
+            android:layout_marginLeft="10dp"
+            android:paddingTop="9dp"
             />
         <CheckBox
             android:id="@+id/paramUserCheckBox"
@@ -28,6 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/paramUserName"
             android:layout_marginBottom="5dp"
+            android:layout_toLeftOf="@id/paramUserCheckBox"
             />
     </RelativeLayout>
 </LinearLayout>

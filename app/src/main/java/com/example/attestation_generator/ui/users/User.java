@@ -32,7 +32,6 @@ public class User implements Serializable {
     public User(Hashtable dic)
     {
         mDefaultMotif = (String) dic.get("Motif");
-        Log.i("My TAG", "def motif = " + mDefaultMotif);
         mName = (String) dic.get("Name");
         mBirthday = (String) dic.get("Birthday");
         mBirthplace = (String) dic.get("Birthplace");
@@ -100,7 +99,7 @@ public class User implements Serializable {
             now = new Date();
         }
         mDic.put("Date", new SimpleDateFormat("dd / MM / YYYY").format(now));
-        mDic.put("Time", new SimpleDateFormat("HH mm").format(now));
+        mDic.put("Time", new SimpleDateFormat("HH mm").format(now).replace(' ', 'h'));
 
     }
 
@@ -124,4 +123,29 @@ public class User implements Serializable {
     {
         this.isAutoCreate = AutoCreate;
     }
+
+    public void setDefaultMotif(String defaultMotif) {
+        mDefaultMotif = defaultMotif;
+    }
+
+    public void setName(String name) {
+        mName = name;
+    }
+
+    public void setAdresse(String adresse) {
+        mAdresse = adresse;
+    }
+
+    public void setBirthday(String birthday) {
+        mBirthday = birthday;
+    }
+
+    public void setCity(String city) {
+        mCity = city;
+    }
+
+    public void setBirthplace(String birthplace) {
+        mBirthplace = birthplace;
+    }
+
 }

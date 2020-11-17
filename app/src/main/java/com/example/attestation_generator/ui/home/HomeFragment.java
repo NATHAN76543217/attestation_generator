@@ -180,12 +180,16 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
         View userView = getLayoutInflater().inflate(R.layout.pop_up_user_layout, null);
         popupWindow.setContentView(userView);
 
+        final Spinner spin = (Spinner) userView.findViewById(R.id.popUpUserSpin);
+        ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.popUp_motifs));
+        spin.setAdapter(aa);
+
         RecyclerView userRecycler = userView.findViewById(R.id.popUpUserList);
         userRecycler.setLayoutManager(new LinearLayoutManager(userView.getContext()));
 
         List<User> userList = new ArrayList<>();
         UsersFragment.fillUsersList(getContext(), userList);
-        UsersListAdapter UsersAdapter = new UsersListAdapter(popupWindow, mAttestationList, adapter, getContext(), userList, mUserListener, null);
+        UsersListAdapter UsersAdapter = new UsersListAdapter(popupWindow, mAttestationList, adapter, getContext(), userList, mUserListener, null, spin);
         userRecycler.setAdapter(UsersAdapter);
 
         Button back  = userView.findViewById(R.id.back_bt);
@@ -200,10 +204,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
 
     public void popUpNew(final View anchorView , final PopupWindow popupWindow, final View popupView) {
         //link items
-        final TextView Ttitle = (TextView) popupView.findViewById(R.id.popUpTitle);
         final Spinner spin = (Spinner) popupView.findViewById(R.id.popUpSpinner);
-        Ttitle.setText(R.string.popUpTitle);
-        //spin.setOnItemSelectedListener(this);
         ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.popUp_motifs));
         spin.setAdapter(aa);
         final EditText EName = (EditText) popupView.findViewById(R.id.popUpGetName);
@@ -219,19 +220,20 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
                 //click sur valider
                 if (EName.getText().toString().length() == 0 || ECity.getText().toString().length() == 0 || EAdresse.getText().toString().length() == 0 || EBirthplace.getText().toString().length() == 0)
                 {
-                    Toast.makeText(anchorView.getContext(),"Certain champs sont vide", Toast.LENGTH_LONG).show();
+                    Toast.makeText(anchorView.getContext(),getString(R.string.empty_fields), Toast.LENGTH_LONG).show();
                     return;
                 }
                 Hashtable dic = new Hashtable();
                 dic.put("Motif", String.valueOf(spin.getSelectedItemId()));
                 dic.put("Name", EName.getText().toString());
-                dic.put("Birthday", datepicker.getDayOfMonth() + " / " + (datepicker.getMonth() + 1) + " / " + datepicker.getYear());
+                SimpleDateFormat sdf = new SimpleDateFormat(getString(R.string.dateFormat));
+                dic.put("Birthday", sdf.format(datepicker.getCalendarView().getDate()));
                 dic.put("Birthplace", EBirthplace.getText().toString());
                 dic.put("Adresse", EAdresse.getText().toString());
                 dic.put("City", ECity.getText().toString().substring(0, 1).toUpperCase() + ECity.getText().toString().substring(1));
                 Date now = new Date();
-                dic.put("Date", new SimpleDateFormat("dd / MM / YYYY").format(now));
-                dic.put("Time", new SimpleDateFormat("HH mm").format(now));
+                dic.put("Date", new SimpleDateFormat(getString(R.string.dateFormat)).format(now));
+                dic.put("Time", new SimpleDateFormat("HH mm").format(now).replace(' ', 'h'));
                 addNewPdf(mAttestationList, adapter, getContext(), dic);
                 popupWindow.dismiss();
             }
@@ -249,7 +251,6 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
     public static void addNewPdf(List<Attestation> AttestationList, AttestListAdapter adapter, Context context, Hashtable dic)
     {
         AttestationList.add(AttestationFactory.newAttestation(context, dic));
-        Log.i("My TAG", "Files: new file with popUp.");
         //trie mAttestation de la plus recente a la plus ancienne
         Collections.sort(AttestationList, new Comparator<Attestation>() {
             @Override

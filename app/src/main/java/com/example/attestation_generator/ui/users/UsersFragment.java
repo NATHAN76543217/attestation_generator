@@ -30,6 +30,7 @@ import com.example.attestation_generator.ui.attestations.Attestation;
 import com.example.attestation_generator.ui.home.AttestListAdapter;
 import com.example.attestation_generator.ui.home.HomeFragment;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -59,7 +60,7 @@ public class UsersFragment extends Fragment {
         //init mUsersList
         mUsersList = new ArrayList<>();
         fillUsersList(getContext(), mUsersList);
-        this.mUsersAdapter = new UsersListAdapter(null, null, null, getContext(), this.mUsersList, mUserListener, btDel);
+        this.mUsersAdapter = new UsersListAdapter(null, null, null, getContext(), this.mUsersList, mUserListener, btDel, null);
         this.mUsersView.setAdapter(this.mUsersAdapter);
         //add click listener
         btAdd.setOnClickListener(new View.OnClickListener() {
@@ -113,18 +114,11 @@ public class UsersFragment extends Fragment {
     }
 
     public void newUser(final View anchorView) {
-        View popupView = getLayoutInflater().inflate(R.layout.pop_up_new_layout, null);
+        View popupView = getLayoutInflater().inflate(R.layout.pop_up_add_user, null);
         final PopupWindow popupWindow = new PopupWindow(popupView,
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-        TextView title = (TextView) popupView.findViewById(R.id.popUpTitle);
-        title.setText(R.string.newUserTitle);
-        TextView title_motif = (TextView) popupView.findViewById(R.id.popUpMotifTitle);
-        title_motif.setText(getString(R.string.popUpDefaultMotif));
-        final Spinner  Espin = (Spinner) popupView.findViewById(R.id.popUpSpinner);
-        //Espin.setOnItemSelectedListener(this);
-        ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.popUp_motifs));
-        Espin.setAdapter(aa);
+
         final EditText EName = (EditText) popupView.findViewById(R.id.popUpGetName);
         final EditText ECity = (EditText) popupView.findViewById(R.id.popUpGetCity);
         final EditText EAdresse = (EditText) popupView.findViewById(R.id.popUpGetAdresse);
@@ -145,14 +139,14 @@ public class UsersFragment extends Fragment {
                 //if empty field
                 if (EName.getText().toString().length() == 0 || ECity.getText().toString().length() == 0 || EAdresse.getText().toString().length() == 0 || EBirthplace.getText().toString().length() == 0)
                 {
-                    Toast.makeText(anchorView.getContext(),"Certain champs sont vide", Toast.LENGTH_LONG).show();
+                    Toast.makeText(anchorView.getContext(),getString(R.string.empty_fields), Toast.LENGTH_LONG).show();
                     return;
                 }
                 //create dic and fill it
                 Hashtable dic = new Hashtable();
-                dic.put("Motif", String.valueOf(Espin.getSelectedItemId()));
                 dic.put("Name", EName.getText().toString());
-                dic.put("Birthday", datepicker.getDayOfMonth() + " / " + (datepicker.getMonth() + 1) + " / " + datepicker.getYear());
+                SimpleDateFormat sdf = new SimpleDateFormat(getString(R.string.dateFormat));
+                dic.put("Birthday", sdf.format(datepicker.getCalendarView().getDate()));
                 dic.put("Birthplace", EBirthplace.getText().toString());
                 dic.put("Adresse", EAdresse.getText().toString());
                 dic.put("City", ECity.getText().toString().substring(0, 1).toUpperCase() + ECity.getText().toString().substring(1));
@@ -187,7 +181,7 @@ public class UsersFragment extends Fragment {
         SharedPreferences.Editor edit = preferences.edit();
         //add a new set
         String user_save = "";
-        user_save += newU.getDefaultMotif() + ";";
+        user_save += "0;";
         user_save += newU.getName() + ";";
         user_save += newU.getBirthday() + ";";
         user_save += newU.getBirthplace() + ";";
@@ -199,9 +193,9 @@ public class UsersFragment extends Fragment {
         edit.putString(name, user_save);
         edit.putInt("nbUsers", preferences.getInt("nbUsers", 0) + 1);
         edit.apply();
-
         Log.i("My TAG", "user " + name + " set created");
     }
+    //charge
     public static void fillUsersList(Context context, List<User> UserList)
     {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -209,8 +203,8 @@ public class UsersFragment extends Fragment {
         for (int i = 0; i < nbUsers; i++)
         {
             String Loaded_user = preferences.getString("user" + i, "null");
+            Log.i("My TAG", "load usr:" + Loaded_user);
             UserList.add(new User(Loaded_user));
-            //Log.i("My TAG", "Load user: " + UserList.get(i).getName());
 
         }
     }

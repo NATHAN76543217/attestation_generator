@@ -133,14 +133,16 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFI
 
         //recupere parametre list user
         String users_str = (String) Param.loadParam(preferences, getString(R.string.create_for_users), Param.STRING);
-
-        // crée pour chaque user
-        for (User user : userList)
-        {
-            if (users_str.contains(";" + user.getName() + ";"))
-            {
-                Log.i("My TAG", "create auto for user " + user);
-                AttestationFactory.newAttestation(this, user.getDic(true));
+        String[] to_create = users_str.split(";");
+        for(String str : to_create) {
+            String value[] = str.split(":");
+            // crée pour chaque user
+            for (User user : userList) {
+                if (user.getName().equals(value[0])) {
+                    Log.i("My TAG", "create auto for user " + user);
+                    user.setDefaultMotif(value[1]);
+                    AttestationFactory.newAttestation(this, user.getDic(true));
+                }
             }
         }
     }
@@ -204,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFI
         dic.put("City", user.getCity());
         Date now = new Date();
         dic.put("Date", new SimpleDateFormat("dd / MM / YYYY").format(now));
-        dic.put("Time", new SimpleDateFormat("HH mm").format(now));
+        dic.put("Time", new SimpleDateFormat("HH mm").format(now).replace(' ', 'h'));
         HomeFragment.addNewPdf(attestationList, adapter, context, dic);
     }
     private void openParameters() {

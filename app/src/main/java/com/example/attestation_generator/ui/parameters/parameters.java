@@ -20,12 +20,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
@@ -45,17 +47,18 @@ public class parameters extends AppCompatActivity {
     List<User> userList;
     ParamAdapter mParamAdapter;
     UserAdapter mUserAdapter;
+    ViewSwitcher switcher;
+    Button bt_save;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parameters);
 
-        final ViewSwitcher switcher = findViewById(R.id.paramSwitcher);
+        this.switcher = findViewById(R.id.paramSwitcher);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(getString(R.string.parameters));
         actionBar.setDisplayHomeAsUpEnabled(true);
-
         if (getStorageRight() == 1)
             Log.i("My TAG", "Right granted!");
 
@@ -66,15 +69,17 @@ public class parameters extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, final int position, long ID) {
                 Log.i("My TAG", "clicked");
                 switcher.showNext();
-                Button backBT = findViewById(R.id.paramBack);
-                backBT.setOnClickListener(new View.OnClickListener() {
+
+                //TODO ajouter valeur de spin à la sauvegarde puis la récuperer
+                bt_save = findViewById(R.id.paramBack);
+                bt_save.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String value = ";";
+                        String value = "";
                         for (int i = 0; i < userList.size(); i++)
                         {
                             if (userList.get(i).isAutoCreate)
-                                value += userList.get(i).getName() + ";";
+                                value += userList.get(i).getName() + ":" + userList.get(i).getDefaultMotif() +";";
                         }
                         mParamList.get(position).setValue(value);
                         Log.i("My TAG", "set Ulist: " + value);
@@ -108,24 +113,27 @@ public class parameters extends AppCompatActivity {
         return 0;
     }
 
-//TODO virer bouton from user popup
+    //DONE virer bouton from user popup
     //DONE ajouter la création de fichier automatique
-    //TODO ajouter suppression des fichiers pdf
-    //TODO ajouter tick in pdf
-    //TODO popup back button
-    //TODO deplacer le dismiss windows du popup from user
+    //DONE ajouter suppression des fichiers pdf
+    //DONE ajouter tick in pdf
+    //DONE popup back button
+    //DONE deplacer le dismiss windows du popup from user
 
     private List<User> LoadUserList(List<Param> paramList) {
         List<User> userList;
         userList  = new ArrayList<>();
         UsersFragment.fillUsersList(this, userList);
         String paramValue = (String) paramList.get(1).Value;
-        for (int i = 0; i < userList.size(); i++)
-        {
-            if (paramValue.contains(";" + userList.get(i).getName() + ";"))
-            {
-                Log.i("My TAG", "FIND " + userList.get(i).getName() + " IN " + paramValue);
-                userList.get(i).setIsAutoCreate(true);
+        String[] auto_list = paramValue.split(";");
+        //récupere les uttilisateurs auto-create
+        for(String str : auto_list) {
+            String value[] = str.split(":");
+            for (User user : userList) {
+                if (user.getName().equals(value[0])) {
+                    user.setIsAutoCreate(true);
+                    user.setDefaultMotif(value[1]);
+                }
             }
         }
         return userList;
@@ -261,17 +269,34 @@ public class parameters extends AppCompatActivity {
             //(2) : Récupération des TextView de notre layout
             TextView usr_name = (TextView)layoutItem.findViewById(R.id.paramUserName);
             CheckBox usr_checkbox = (CheckBox) layoutItem.findViewById(R.id.paramUserCheckBox);
+            Spinner spin = layoutItem.findViewById(R.id.paramUserSpin);
+            ArrayAdapter aa = new ArrayAdapter(parameters.this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.popUp_motifs));
 
             //(3) : Renseignement des valeurs
+            spin.setAdapter(aa);
+            Log.i("My TAG", "To check: " + usr.getDefaultMotif());
+            spin.setSelection(Integer.parseInt(usr.getDefaultMotif()));
             usr_name.setText(mUserList.get(position).getName());
             usr_checkbox.setChecked(usr.isAutoCreate);
+
+            //(4) Les listeners
             usr_checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                     usr.setIsAutoCreate(isChecked);
                 }
             });
-            //(4) Changement de la couleur du fond de notre item
+            spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                    usr.setDefaultMotif(String.valueOf(id));
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
 
             //On retourne l'item créé.
             return layoutItem;        }
@@ -281,9 +306,13 @@ public class parameters extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                this.finish();
+                if (switcher.getDisplayedChild() == 0)
+                    this.finish();
+                else
+                    bt_save.callOnClick();
                 return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 }

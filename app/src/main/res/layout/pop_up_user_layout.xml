@@ -28,16 +28,36 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Selectionnez votre profil"
-            android:textSize="@dimen/popUpUserTitleSize"
-            android:textColor="@color/colorPopUpSubtitle"
-            android:padding="10dp"
-            android:layout_toRightOf="@+id/back_bt"
-            />
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Selectionnez votre profil"
+                android:textSize="@dimen/popUpUserTitleSize"
+                android:textColor="@color/colorPopUpSubtitle"
+                android:padding="10dp"
+                android:layout_toRightOf="@+id/back_bt"
+                />
+            <TextView
+                android:id="@+id/popUpUserText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:textSize="@dimen/popUpSubtitleSize"
+                android:padding="5dp"
+                android:text="@string/popUpMotif"
+                android:textStyle="bold"
+                android:textColor="@color/colorPopUpSubtitle"
+                android:layout_below="@id/back_bt"
+                android:layout_marginTop="10dp"
+                />
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/popUpUserSpin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/popUpUserText"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="7dp"
+                />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/popUpUserList"
                 android:layout_width="match_parent"
@@ -45,7 +65,7 @@
                 android:clickable="true"
                 android:minHeight="300dp"
                 android:minWidth="200dp"
-                android:layout_below="@id/back_bt"
+                android:layout_below="@id/popUpUserSpin"
                 android:layout_marginTop="10dp"
             />
 

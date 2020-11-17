@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupWindow;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ListAdapter;
@@ -27,8 +28,9 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersViewHolder> {
     private Context mcontext;
     private PopupWindow mPopupWindow;
     private Button mBtDel;
+    private Spinner mSpinMotif;
 
-    public UsersListAdapter(PopupWindow popupWindow, List<Attestation> attestationList, AttestListAdapter adapter, Context context, List<User> UserList, UsersFragment.userinterface onClickListener, Button btDel) {
+    public UsersListAdapter(PopupWindow popupWindow, List<Attestation> attestationList, AttestListAdapter adapter, Context context, List<User> UserList, UsersFragment.userinterface onClickListener, Button btDel, Spinner spin) {
         this.mUserList = UserList;
         this.mOnClickListener = onClickListener;
         this.mAttestationList = attestationList;
@@ -36,6 +38,7 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersViewHolder> {
         this.mcontext = context;
         this.mPopupWindow = popupWindow;
         this.mBtDel = btDel;
+        this.mSpinMotif = spin;
     }
 
     @NonNull
@@ -44,7 +47,7 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersViewHolder> {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.fragment_user_item, parent, false);
-        return new UsersViewHolder(view, mPopupWindow, mAttestationList, mAdapter, mcontext, mOnClickListener, mBtDel, mUserList);
+        return new UsersViewHolder(view, mPopupWindow, mAttestationList, mAdapter, mcontext, mOnClickListener, mBtDel, mUserList, mSpinMotif);
     }
 
     @Override

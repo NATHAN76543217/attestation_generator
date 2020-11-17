@@ -19,6 +19,7 @@
     <string name="menu_send">Send</string>
     <!-- PDF-->
     <string name="pdfTemplateName">template.pdf</string>
+    <string name="dateFormat">"dd / MM / yyyy"</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_display_pdf">displayPdf</string>
@@ -63,6 +64,8 @@
     <!--NewUser-->
     <string name="newUserTitle">Nouvel utilisateur</string>
     <string name="newUserBt">Crée</string>
+    <!--EditUser-->
+    <string name="editUserTitle">Editer utilisateur</string>
     <!--Parameters-->
     <string name="parameters">Parametres</string>
     <string name="paramBack">Valider</string>
@@ -70,4 +73,6 @@
     <string name="create_for_users">Profils concernés par la création auto.</string>
     <string name="paramAutoCreate">Génére une attestation datant de 30minutes lors de l\'ouverture de l\'application</string>
     <string name="paramUserList">Liste des utilisateurs pour la génération automatique</string>
+    <!--Toast-->
+    <string name="empty_fields">Certains champs sont vide</string>
 </resources>

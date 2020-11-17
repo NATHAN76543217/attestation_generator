@@ -135,11 +135,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFI
         String users_str = (String) Param.loadParam(preferences, getString(R.string.create_for_users), Param.STRING);
         String[] to_create = users_str.split(";");
         for(String str : to_create) {
-            Log.i("My TAG", "--" + str);
             String value[] = str.split(":");
-            Log.i("My TAG", "0--" + value[0]);
-            Log.i("My TAG", "1--" + value[1]);
-
             // crée pour chaque user
             for (User user : userList) {
                 if (user.getName().equals(value[0])) {
@@ -210,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFI
         dic.put("City", user.getCity());
         Date now = new Date();
         dic.put("Date", new SimpleDateFormat("dd / MM / YYYY").format(now));
-        dic.put("Time", new SimpleDateFormat("HH mm").format(now));
+        dic.put("Time", new SimpleDateFormat("HH mm").format(now).replace(' ', 'h'));
         HomeFragment.addNewPdf(attestationList, adapter, context, dic);
     }
     private void openParameters() {

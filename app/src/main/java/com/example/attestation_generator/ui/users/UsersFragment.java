@@ -30,6 +30,7 @@ import com.example.attestation_generator.ui.attestations.Attestation;
 import com.example.attestation_generator.ui.home.AttestListAdapter;
 import com.example.attestation_generator.ui.home.HomeFragment;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -138,13 +139,14 @@ public class UsersFragment extends Fragment {
                 //if empty field
                 if (EName.getText().toString().length() == 0 || ECity.getText().toString().length() == 0 || EAdresse.getText().toString().length() == 0 || EBirthplace.getText().toString().length() == 0)
                 {
-                    Toast.makeText(anchorView.getContext(),"Certain champs sont vide", Toast.LENGTH_LONG).show();
+                    Toast.makeText(anchorView.getContext(),getString(R.string.empty_fields), Toast.LENGTH_LONG).show();
                     return;
                 }
                 //create dic and fill it
                 Hashtable dic = new Hashtable();
                 dic.put("Name", EName.getText().toString());
-                dic.put("Birthday", datepicker.getDayOfMonth() + " / " + (datepicker.getMonth() + 1) + " / " + datepicker.getYear());
+                SimpleDateFormat sdf = new SimpleDateFormat(getString(R.string.dateFormat));
+                dic.put("Birthday", sdf.format(datepicker.getCalendarView().getDate()));
                 dic.put("Birthplace", EBirthplace.getText().toString());
                 dic.put("Adresse", EAdresse.getText().toString());
                 dic.put("City", ECity.getText().toString().substring(0, 1).toUpperCase() + ECity.getText().toString().substring(1));
@@ -191,7 +193,6 @@ public class UsersFragment extends Fragment {
         edit.putString(name, user_save);
         edit.putInt("nbUsers", preferences.getInt("nbUsers", 0) + 1);
         edit.apply();
-
         Log.i("My TAG", "user " + name + " set created");
     }
     //charge

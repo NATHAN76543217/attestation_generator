@@ -145,7 +145,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
         location[1] = 0;
 
         final PopupWindow popupWindow = new PopupWindow(chooseView,
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         Button fromUser = (Button) chooseView.findViewById(R.id.popUpChoiceFrom);
         Button fromNew = (Button) chooseView.findViewById(R.id.popUpChoiceNew);
         fromNew.setOnClickListener(new View.OnClickListener() {
@@ -171,7 +171,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         popupWindow.setOutsideTouchable(true);
         // Using location, the PopupWindow will be displayed right under anchorView
-        popupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY,
+        popupWindow.showAtLocation(anchorView, Gravity.CENTER,
                 location[0], location[1] + anchorView.getHeight());
     }
 
@@ -289,6 +289,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
             mclickListener = (OnFIL) context;
             mUserListener = (UsersFragment.userinterface) context;
         }
+
         else if (context instanceof UsersFragment.userinterface)
         {
         }

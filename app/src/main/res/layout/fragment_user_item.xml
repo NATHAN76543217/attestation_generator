@@ -3,16 +3,16 @@
 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/user_item_back"
-    android:layout_marginRight="15dp"
-    android:layout_marginLeft="15dp"
+    android:background="@drawable/item_back"
+    android:layout_marginHorizontal="15dp"
+    android:layout_marginTop="5dp"
     android:orientation="horizontal">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/userText"
-        android:text="default"
+        android:text="Luca Robino ------------------------"
         android:textSize="25sp"
         android:padding="10dp"
         android:textAlignment="center"
@@ -21,9 +21,9 @@
         android:id="@+id/userCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
+        android:visibility="visible"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="15dp"
         android:layout_centerVertical="true"
         />
 </RelativeLayout>

@@ -3,25 +3,31 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/attest_item_back"
+    android:background="@drawable/item_back"
     android:padding="2dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginHorizontal="15dp"
     android:minHeight="40dp">
     <TextView
         android:id="@+id/item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Luca Robino 21h43"
         android:textSize="20sp"
         android:layout_marginEnd="50dp"
+        android:layout_marginStart="20dp"
+        android:paddingTop="3dp"
         />
     <TextView
         android:id="@+id/item_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Salut"
+        android:text="31/3/2020"
         android:layout_below="@id/item_title"
         android:layout_marginBottom="5dp"
         android:layout_marginEnd="50dp"
-
+        android:layout_marginStart="20dp"
+        android:paddingBottom="3dp"
         />
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/item_cross"
@@ -31,6 +37,6 @@
         android:layout_marginEnd="10dp"
         android:layout_centerVertical="true"
         android:src="@drawable/cross"
-        android:background="@color/colorLightGrey"
+        android:background="@color/AttestItemBackgroundColor"
         />
 </RelativeLayout>

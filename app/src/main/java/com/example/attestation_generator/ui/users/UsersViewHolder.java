@@ -115,7 +115,7 @@ public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnC
 		LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View popupView = inflater.inflate(R.layout.pop_up_edit_user, null);
 		final PopupWindow popupWindow = new PopupWindow(popupView,
-				LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+				LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
 
 
 		final EditText EName = (EditText) popupView.findViewById(R.id.popUpGetName);

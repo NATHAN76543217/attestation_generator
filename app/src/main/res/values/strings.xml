@@ -17,6 +17,7 @@
     <string name="menu_tools">MyTools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="menu_notice">Notice</string>
     <!-- PDF-->
     <string name="pdfTemplateName">template.pdf</string>
     <string name="dateFormat">"dd / MM / yyyy"</string>

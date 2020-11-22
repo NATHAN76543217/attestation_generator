@@ -116,7 +116,7 @@ public class UsersFragment extends Fragment {
     public void newUser(final View anchorView) {
         View popupView = getLayoutInflater().inflate(R.layout.pop_up_add_user, null);
         final PopupWindow popupWindow = new PopupWindow(popupView,
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
 
 
         final EditText EName = (EditText) popupView.findViewById(R.id.popUpGetName);
@@ -167,11 +167,11 @@ public class UsersFragment extends Fragment {
         // If you need the PopupWindow to dismiss when when touched outside
         popupWindow.setBackgroundDrawable(new ColorDrawable());
         int[] location = new int[2];
-        location[0] = 100;
-        location[1] = 100;
+        location[0] = 0;
+        location[1] = 0;
         // Using location, the PopupWindow will be displayed right under anchorView
-        popupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY,
-                location[0], location[1] + anchorView.getHeight());
+        popupWindow.showAtLocation(anchorView, Gravity.CENTER_HORIZONTAL,
+                anchorView.getWidth(), anchorView.getHeight());
 
     }
 
@@ -205,7 +205,6 @@ public class UsersFragment extends Fragment {
             String Loaded_user = preferences.getString("user" + i, "null");
             Log.i("My TAG", "load usr:" + Loaded_user);
             UserList.add(new User(Loaded_user));
-
         }
     }
 

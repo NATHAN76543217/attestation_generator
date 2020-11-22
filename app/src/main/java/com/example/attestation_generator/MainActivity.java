@@ -17,6 +17,7 @@ import com.example.attestation_generator.ui.parameters.parameters;
 import com.example.attestation_generator.ui.users.User;
 import com.example.attestation_generator.ui.users.UsersFragment;
 import com.example.attestation_generator.ui.users.UsersListAdapter;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -74,8 +75,8 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFI
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_send)
+                R.id.nav_home, R.id.nav_gallery,
+                R.id.nav_tools, R.id.nav_send)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -116,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFI
         else
             Log.i("My TAG", "template pdf already exist in storage");
         //uncomment to start with empty SharedPreferences
+
         //PreferenceManager.getDefaultSharedPreferences(this).edit().clear().apply();
         auto_create_attestations();
     }

@@ -47,7 +47,7 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersViewHolder> {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.fragment_user_item, parent, false);
-        return new UsersViewHolder(view, mPopupWindow, mAttestationList, mAdapter, mcontext, mOnClickListener, mBtDel, mUserList, mSpinMotif);
+        return new UsersViewHolder(view, mPopupWindow, mAttestationList, mAdapter, mcontext, mOnClickListener, mBtDel, mUserList, mSpinMotif, this);
     }
 
     @Override

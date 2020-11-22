@@ -49,9 +49,10 @@ public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnC
 	private PopupWindow mPopupWindow;
 	private Button mBtDel;
 	private Spinner mSpinMotif;
+	private UsersListAdapter mUsersAdapter;
 
 
-	public UsersViewHolder(@NonNull final View itemView, PopupWindow popupWindow, List<Attestation> attestationList, AttestListAdapter adapter, Context context, UsersFragment.userinterface Listener, Button btDel, List<User> userList, Spinner spin) {
+	public UsersViewHolder(@NonNull final View itemView, PopupWindow popupWindow, List<Attestation> attestationList, AttestListAdapter adapter, Context context, UsersFragment.userinterface Listener, Button btDel, List<User> userList, Spinner spin, UsersListAdapter usersListAdapter) {
 		super(itemView);
 		mTitle = itemView.findViewById(R.id.userText);
 		mCheckBox = itemView.findViewById(R.id.userCheckBox);
@@ -72,6 +73,7 @@ public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnC
 		this.mPopupWindow = popupWindow;
 		this.mBtDel = btDel;
 		this.mSpinMotif = spin;
+		this.mUsersAdapter = usersListAdapter;
 		itemView.setOnClickListener(this);
 
 	}
@@ -155,6 +157,7 @@ public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnC
 				user.setBirthday(datepicker.getDayOfMonth() + " / " + (datepicker.getMonth() + 1) + " / " + datepicker.getYear());
 				//enregistrement des users
 				setUserSet();
+				mUsersAdapter.notifyDataSetChanged();
 				popupWindow.dismiss();
 
 			}
@@ -165,8 +168,8 @@ public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnC
 		// If you need the PopupWindow to dismiss when when touched outside
 		popupWindow.setBackgroundDrawable(new ColorDrawable());
 		int[] location = new int[2];
-		location[0] = 100;
-		location[1] = 100;
+		location[0] = 0;
+		location[1] = 0;
 		// Using location, the PopupWindow will be displayed right under anchorView
 		popupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY,
 				location[0], location[1] + anchorView.getHeight());

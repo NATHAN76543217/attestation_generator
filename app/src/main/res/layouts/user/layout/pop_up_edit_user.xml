@@ -145,6 +145,7 @@
                 android:id="@+id/popUpButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@string/validation"
                 />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

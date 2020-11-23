@@ -20,7 +20,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -39,21 +38,10 @@ import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 import com.github.barteksc.pdfviewer.listener.OnPageErrorListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.pdf.ColumnText;
-import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfImportedPage;
-import com.itextpdf.text.pdf.PdfReader;
-import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -75,7 +63,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
                              ViewGroup container, Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        final View root = inflater.inflate(R.layout.attestation_frame_layout, container, false);
+        final View root = inflater.inflate(R.layout.fragment_attestations, container, false);
         mRecyclerView = root.findViewById(R.id.my_recycler_view);
         FloatingActionButton fab = getActivity().findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -177,7 +165,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
 
     public void popUpUser(final View anchorView , final PopupWindow popupWindow)
     {
-        View userView = getLayoutInflater().inflate(R.layout.pop_up_user_layout, null);
+        View userView = getLayoutInflater().inflate(R.layout.pop_up_from_user_layout, null);
         popupWindow.setContentView(userView);
 
         final Spinner spin = (Spinner) userView.findViewById(R.id.popUpUserSpin);

@@ -1,6 +1,5 @@
 package com.example.attestation_generator.ui.users;
 
-import android.app.ListFragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
@@ -21,17 +20,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.attestation_generator.R;
 import com.example.attestation_generator.ui.attestations.Attestation;
 import com.example.attestation_generator.ui.home.AttestListAdapter;
-import com.example.attestation_generator.ui.home.HomeFragment;
 
-import java.util.Hashtable;
 import java.util.List;
 
 public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -114,12 +108,12 @@ public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnC
 	}
 
 	public void editUser(final View anchorView) {
+		//création de la vue
 		LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View popupView = inflater.inflate(R.layout.pop_up_edit_user, null);
 		final PopupWindow popupWindow = new PopupWindow(popupView,
 				LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-
-
+		//récuperation des elements
 		final EditText EName = (EditText) popupView.findViewById(R.id.popUpGetName);
 		EName.setText(user.getName());
 		final EditText ECity = (EditText) popupView.findViewById(R.id.popUpGetCity);
@@ -140,7 +134,6 @@ public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnC
 			}
 		});
 		Button BT = (Button) popupView.findViewById(R.id.popUpButton);
-		BT.setText(R.string.newUserBt);
 		BT.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View popUpView) {
@@ -167,12 +160,9 @@ public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnC
 		popupWindow.setFocusable(true);
 		// If you need the PopupWindow to dismiss when when touched outside
 		popupWindow.setBackgroundDrawable(new ColorDrawable());
-		int[] location = new int[2];
-		location[0] = 0;
-		location[1] = 0;
 		// Using location, the PopupWindow will be displayed right under anchorView
 		popupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY,
-				location[0], location[1] + anchorView.getHeight());
+				0, anchorView.getHeight());
 
 	}
 	public void setUserSet()
@@ -189,13 +179,14 @@ public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnC
 		user_save += user.getCity()+ ";";
 		Log.i("My TAG", "save :" + user_save);
 		//push the new set
-		String name = "user" + getAdapterPosition();
+		String name = "" + getAdapterPosition();
 		edit.putString(name, user_save);
 		edit.apply();
 
-		Log.i("My TAG", "user " + name + " set created");
+		Log.i("My TAG", " " + name + " set created");
 	}
 	public void setVisibility() {
+		//set visibility and check state to checkBox
 		if (user.isCheckBoxVisible)
 			mCheckBox.setVisibility(View.VISIBLE);
 		else
@@ -204,10 +195,6 @@ public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnC
 			user.setChecked(true);
 		else
 			user.setChecked(false);
-     /*   Log.i("My TAG", "holder set visibil to: " + user.isCheckBoxVisible());
-        Log.i("My TAG", "holder set checked to: " + user.isChecked());
-        Log.i("My TAG", "--");
-        */
 	}
 
 	public void setDelText(Boolean noCheck) {

@@ -3,7 +3,6 @@ package com.example.attestation_generator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 
@@ -16,16 +15,10 @@ import com.example.attestation_generator.ui.parameters.Param;
 import com.example.attestation_generator.ui.parameters.parameters;
 import com.example.attestation_generator.ui.users.User;
 import com.example.attestation_generator.ui.users.UsersFragment;
-import com.example.attestation_generator.ui.users.UsersListAdapter;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
@@ -39,20 +32,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.ListAdapter;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
-import android.widget.ArrayAdapter;
 
 import java.io.File;
-import java.io.FileDescriptor;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -75,8 +62,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFI
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery,
-                R.id.nav_tools, R.id.nav_send)
+                R.id.nav_home, R.id.nav_users, R.id.nav_notice)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -117,7 +103,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFI
         else
             Log.i("My TAG", "template pdf already exist in storage");
         //uncomment to start with empty SharedPreferences
-
         //PreferenceManager.getDefaultSharedPreferences(this).edit().clear().apply();
         auto_create_attestations();
     }

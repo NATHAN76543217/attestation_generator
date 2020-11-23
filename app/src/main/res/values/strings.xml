@@ -13,10 +13,6 @@
     <!-- NavigationBar-->
     <string name="menu_home">Mes attestations</string>
     <string name="menu_users">Mes Utilisateurs</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">MyTools</string>
-    <string name="menu_share">Share</string>
-    <string name="menu_send">Send</string>
     <string name="menu_notice">Notice</string>
     <!-- PDF-->
     <string name="pdfTemplateName">template.pdf</string>
@@ -64,7 +60,7 @@
     <string name="sub_user">Supprimer un utilisateur</string>
     <!--NewUser-->
     <string name="newUserTitle">Nouvel utilisateur</string>
-    <string name="newUserBt">Crée</string>
+    <string name="newUserBt">Créer</string>
     <!--EditUser-->
     <string name="editUserTitle">Editer utilisateur</string>
     <!--Parameters-->

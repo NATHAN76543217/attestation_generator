@@ -30,7 +30,7 @@ public class AttestListAdapter extends RecyclerView.Adapter<HomeViewHolder> {
 
     @Override
     public int getItemViewType(final int position) {
-        return R.layout.attestation_frame_layout;
+        return R.layout.fragment_attestations;
     }
 
     @NonNull

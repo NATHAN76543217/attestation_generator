@@ -10,14 +10,11 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,13 +25,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.attestation_generator.R;
 import com.example.attestation_generator.ui.attestations.Attestation;
 import com.example.attestation_generator.ui.home.AttestListAdapter;
-import com.example.attestation_generator.ui.home.HomeFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.Set;
 
 public class UsersFragment extends Fragment {
 
@@ -189,11 +184,11 @@ public class UsersFragment extends Fragment {
         user_save += newU.getCity()+ ";";
         Log.i("My TAG", "save :" + user_save);
         //push the new set
-        String name = "user" + mUsersList.indexOf(newU);
+        String name = "" + mUsersList.indexOf(newU);
         edit.putString(name, user_save);
         edit.putInt("nbUsers", preferences.getInt("nbUsers", 0) + 1);
         edit.apply();
-        Log.i("My TAG", "user " + name + " set created");
+        Log.i("My TAG", " " + name + " set created");
     }
     //charge
     public static void fillUsersList(Context context, List<User> UserList)
@@ -202,7 +197,7 @@ public class UsersFragment extends Fragment {
         Integer nbUsers = preferences.getInt("nbUsers", 0);
         for (int i = 0; i < nbUsers; i++)
         {
-            String Loaded_user = preferences.getString("user" + i, "null");
+            String Loaded_user = preferences.getString("" + i, "null");
             Log.i("My TAG", "load usr:" + Loaded_user);
             UserList.add(new User(Loaded_user));
         }
@@ -219,7 +214,7 @@ public class UsersFragment extends Fragment {
         {
              addUserSet(usersList.get(i));
         }
-        editor.remove("user" + usersList.size());
+        editor.remove("" + usersList.size());
         Log.i("My TAG", "new nb users = " + usersList.size());
         editor.putInt("nbUsers", usersList.size());
         editor.apply();

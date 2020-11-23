@@ -44,7 +44,6 @@ public class User implements Serializable {
     {
         String values[] = set.split(";");
         mDefaultMotif = values[0];
-        Log.i("My TAG", "def motif = " + mDefaultMotif);
         mName = values[1];
         mBirthday = values[2];
         mBirthplace = values[3];

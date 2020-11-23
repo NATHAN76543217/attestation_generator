@@ -1,4 +1,4 @@
-package com.example.attestation_generator.ui.send;
+package com.example.attestation_generator.ui.tools;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.attestation_generator.R;
 
-public class SendFragment extends Fragment {
+public class NoticeFragment extends Fragment {
 
-    private SendViewModel sendViewModel;
+    private NoticeViewModel toolsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        sendViewModel =
-                ViewModelProviders.of(this).get(SendViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_send, container, false);
-        final TextView textView = root.findViewById(R.id.text_send);
-        sendViewModel.getText().observe(this, new Observer<String>() {
+        toolsViewModel =
+                ViewModelProviders.of(this).get(NoticeViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_notice, container, false);
+        final TextView textView = root.findViewById(R.id.text_tools);
+        toolsViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

@@ -128,10 +128,6 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
         View chooseView = getLayoutInflater().inflate(R.layout.pop_up_choice_layout, null);
         final View popupNewView = getLayoutInflater().inflate(R.layout.pop_up_new_layout, null);
 
-        final int location[] = new int[2];
-        location[0] = 0;
-        location[1] = 0;
-
         final PopupWindow popupWindow = new PopupWindow(chooseView,
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         Button fromUser = (Button) chooseView.findViewById(R.id.popUpChoiceFrom);
@@ -142,7 +138,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
                                             popupWindow.dismiss();
                                             popupWindow.setContentView(popupNewView);
                                             popUpNew(anchorView, popupWindow, popupNewView);
-                                            popupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY, location[0], location[1] + anchorView.getHeight());
+                                            popupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY, 0, anchorView.getHeight());
                                         }
                                     });
         fromUser.setOnClickListener(new View.OnClickListener() {
@@ -150,7 +146,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
                                         public void onClick(View view) {
                                             popupWindow.dismiss();
                                             popUpUser(anchorView, popupWindow);
-                                            popupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY, location[0], location[1] + anchorView.getHeight());
+                                            popupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY, 0, anchorView.getHeight());
                                         }
                                     });
         //Parameters
@@ -160,7 +156,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
         popupWindow.setOutsideTouchable(true);
         // Using location, the PopupWindow will be displayed right under anchorView
         popupWindow.showAtLocation(anchorView, Gravity.CENTER,
-                location[0], location[1] + anchorView.getHeight());
+                0, anchorView.getHeight());
     }
 
     public void popUpUser(final View anchorView , final PopupWindow popupWindow)

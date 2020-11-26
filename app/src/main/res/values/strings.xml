@@ -27,6 +27,7 @@
     <string name="previous">Previous</string>
     <!--PopUpChoice-->
     <string name="validation">Valider</string>
+    <string name="edit">Editer</string>
     <!--PopUpNewTitles-->
     <string name="popUpTitle">Nouvelle attestation</string>
     <string name="popUpMotif">Selectionnez votre motif:</string>
@@ -49,8 +50,8 @@
         <item>Achat de première nécessité</item>
         <item>Raison médicale</item>
         <item>Déplacement famillial</item>
+        <item>Déplacement relatif à un handicap</item>
         <item>Déplacement bref/activité sportive</item>
-        <item>Déplacement des personnes en situation de handicap et accompagnant</item>
         <item>Convocation judiciaire</item>
         <item>Mission d\'intérêt général</item>
         <item>Déplacement pour les enfants</item>
@@ -72,4 +73,16 @@
     <string name="paramUserList">Liste des utilisateurs pour la génération automatique</string>
     <!--Toast-->
     <string name="empty_fields">Certains champs sont vide</string>
+    <!--Notice-->
+    <string name="notice_title">Notice d\'utilisation</string>
+    <string name="notice_intro">Tout d’abord merci d’utiliser cette application, en espérant qu’elle fera votre bonheur. N’hésitez pas à nous ecrire en retour ! Votre avis nous est très important.</string>
+    <string name="notice_FAB">Le bouton attestation vous permet de créer une nouvelle attestation de deux manières différentes. Vous pouvez remplir les champs un par un avec l\'option «\u00A0nouvelle attestation\u00A0» ou bien utiliser un profil existant avec l\'option «\u00A0à partir d’un utilisateur\u00A0»</string>
+    <string name="notice_t_attestation">- Mes attestations</string>
+    <string name="notice_attestation">Liste les attestations crées, il vous suffit de cliquer sur l\'une d\'entre elles pour pouvoir la visionner. Vous pouvez les supprimer en cliquant simplement sur la croix de droite.</string>
+    <string name="notice_t_user">- Mes utilisateurs</string>
+    <string name="notice_user">Page de gestion permettant d’ajouter, supprimer, éditer des profils utilisateurs.</string>
+    <string name="notice_t_params">— Paramètres</string>
+    <string name="notice_params">La génération automatique:\nLa génération automatique permet de créer une attestation à chaque ouverture de l’application. Celle-ci datera d’1/2h.\nNous vous proposons 2 paramètres pour le gerer:\n- l’activation/désactivation de la génération automatique d’attestation.\n- Le choix des utilisateurs qui verront leur attestation automatiquement crée, ainsi que le motifs à utiliser.\n</string>
+    <string name="notice_disclaimer">Toute donnée passée à l’application est stockée uniquement localement et sera supprimée lors de la désinstallation de l’application.</string>
+    <string name="notice_contact">Vous pouvez nous contacter à: lecaille.nathan@outlook.fr\nCette application vous est proposée par:\nLecaille Nathan.\nRobino Luca.</string>
 </resources>

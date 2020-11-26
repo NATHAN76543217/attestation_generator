@@ -16,20 +16,12 @@ import com.example.attestation_generator.R;
 
 public class NoticeFragment extends Fragment {
 
-    private NoticeViewModel toolsViewModel;
+    private TextView Title;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        toolsViewModel =
-                ViewModelProviders.of(this).get(NoticeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_notice, container, false);
-        final TextView textView = root.findViewById(R.id.text_tools);
-        toolsViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+        this.Title = root.findViewById(R.id.notice_title);
         return root;
     }
 }

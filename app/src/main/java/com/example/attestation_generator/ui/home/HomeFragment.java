@@ -152,6 +152,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
         // If you need the PopupWindow to dismiss when when touched outside
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         popupWindow.setOutsideTouchable(true);
+        popupWindow.setElevation(13);
         // Using location, the PopupWindow will be displayed right under anchorView
         popupWindow.showAtLocation(anchorView, Gravity.CENTER,0, 0);
     }

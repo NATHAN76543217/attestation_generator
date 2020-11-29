@@ -146,6 +146,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/edit"
+                android:theme="@style/buttonApp"
+                android:background="@drawable/button_app"
                 />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

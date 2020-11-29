@@ -117,7 +117,6 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
             });
         }
         this.adapter = new AttestListAdapter(this.mAttestationList, mclickListener);
-        Log.i("My TAG", "ADAPTER=" + this.adapter);
         this.mRecyclerView.setAdapter(this.adapter);
     }
 
@@ -195,7 +194,6 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
         final EditText EBirthplace = (EditText) popupView.findViewById(R.id.popUpGetBirthplace);
         final DatePicker datepicker=(DatePicker)popupView.findViewById(R.id.popUpGetBirthday);
         Button BT = (Button) popupView.findViewById(R.id.popUpButton);
-        BT.setText(R.string.validation);
         BT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View popUpView) {

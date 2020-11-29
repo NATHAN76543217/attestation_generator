@@ -163,6 +163,10 @@
                 android:id="@+id/popUpButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@string/validation"
+                android:theme="@style/buttonApp"
+                android:background="@drawable/button_app"
+                android:layout_marginHorizontal="5dp"
                 />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

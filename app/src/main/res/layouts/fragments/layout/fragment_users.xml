@@ -57,7 +57,7 @@
 
         <Button
             android:id="@+id/userDeleteBt"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/undo"
             android:theme="@style/buttonApp"
@@ -68,6 +68,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="@id/usersBTadd"
             app:layout_constraintWidth_percent="0.7"
+            app:layout_constraintStart_toStartOf="parent"
 
             />
     </androidx.constraintlayout.widget.ConstraintLayout>

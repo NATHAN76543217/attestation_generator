@@ -159,8 +159,8 @@ public class AttestationFactory {
         try {
             BarcodeQRCode qrcode = new BarcodeQRCode(data, 1, 1, null);
             qrcodeImage = qrcode.getImage();
-            qrcodeImage.setAbsolutePosition(455, 35);
-            qrcodeImage.scalePercent(230);
+            qrcodeImage.setAbsolutePosition(450, 30);
+            qrcodeImage.scalePercent(200);
         } catch (BadElementException e) {
             e.printStackTrace();
         }

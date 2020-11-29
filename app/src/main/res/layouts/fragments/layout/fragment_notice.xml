@@ -16,6 +16,23 @@
             android:text="@string/notice_title"
             android:theme="@style/notice_title"
             />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/notice_FAB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/fab"
+                android:layout_marginHorizontal="10dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/notice_t_FAB"
+                android:theme="@style/notice_subtitle"
+                android:layout_toRightOf="@id/notice_FAB"/>
+        </RelativeLayout>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -7,6 +7,7 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.attestation_generator.R;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
@@ -22,6 +23,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Hashtable;
+import java.util.Locale;
 
 public class Attestation {
 
@@ -40,13 +42,13 @@ public class Attestation {
     public Attestation(Context context, File pdf)
     {
         this.context = context;
-        this.fileName = pdf.getName();
+        this.fileName = pdf.getName().substring(0, pdf.getName().length() - 4);
         this.filepath = getPdfFolder() + "/" + this.fileName;
         this.PDF_file = pdf;
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 this.mFileAttributes = Files.readAttributes(this.PDF_file.toPath(), BasicFileAttributes.class);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(context.getString(R.string.dateFormat), Locale.getDefault());
                 creationDate = simpleDateFormat.format(new Date(mFileAttributes.creationTime().toMillis())).toString();
             }
         } catch (IOException  e) {
@@ -60,11 +62,11 @@ public class Attestation {
         this.PDF_doc = (Document) dic.get("Document");
         this.PDF_file = (File) dic.get("PDF");
         this.fileName = (String) dic.get("fileName");
-        this.filepath = getPdfFolder() + "/" + this.fileName;
+        this.filepath = (String) dic.get("filePath");
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 this.mFileAttributes = Files.readAttributes(this.PDF_file.toPath(), BasicFileAttributes.class);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(context.getString(R.string.dateFormat), Locale.getDefault());
                 creationDate = simpleDateFormat.format(new Date(mFileAttributes.creationTime().toMillis())).toString();
             }
         } catch (IOException  e) {
@@ -108,7 +110,6 @@ public class Attestation {
     {
         return this.fileName;
     }
-
     public String getFilepath(Boolean extention)
     {
         if (extention)
@@ -126,7 +127,7 @@ public class Attestation {
     }
 
     public File getPDF_file() {
-        //Log.i("My TAG", String.format("GET: Att.PDF_file = %s", PDF_file.getName()));
+        Log.i("My TAG", String.format("GET: Att.PDF_file = %s", PDF_file.getName()));
         return PDF_file;
     }
 

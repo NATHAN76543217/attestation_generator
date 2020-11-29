@@ -50,7 +50,6 @@ import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 
-
 public class HomeFragment extends Fragment implements OnLoadCompleteListener, OnPageChangeListener, OnPageErrorListener, AdapterView.OnItemSelectedListener {
 
     private RecyclerView mRecyclerView;
@@ -101,7 +100,6 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
             File folder = AttestationFactory.getPdfFolder(getContext());
             File files[] = folder.listFiles();
             Context ctx = getContext();
-            Log.i("My TAG", "Files: Get all files in pdf directory");
             Log.i("My TAG", String.format("Files: Found %d files", files.length));
             for (int i = 0; i < files.length; i++) {
                 this.mAttestationList.add(new Attestation(ctx, files[i]));
@@ -129,7 +127,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
         final View popupNewView = getLayoutInflater().inflate(R.layout.pop_up_new_layout, null);
 
         final PopupWindow popupWindow = new PopupWindow(chooseView,
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         Button fromUser = (Button) chooseView.findViewById(R.id.popUpChoiceFrom);
         Button fromNew = (Button) chooseView.findViewById(R.id.popUpChoiceNew);
         fromNew.setOnClickListener(new View.OnClickListener() {
@@ -138,7 +136,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
                                             popupWindow.dismiss();
                                             popupWindow.setContentView(popupNewView);
                                             popUpNew(anchorView, popupWindow, popupNewView);
-                                            popupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY, 0, anchorView.getHeight());
+                                            popupWindow.showAtLocation(anchorView, Gravity.CENTER, 0, 0);
                                         }
                                     });
         fromUser.setOnClickListener(new View.OnClickListener() {
@@ -146,7 +144,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
                                         public void onClick(View view) {
                                             popupWindow.dismiss();
                                             popUpUser(anchorView, popupWindow);
-                                            popupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY, 0, anchorView.getHeight());
+                                            popupWindow.showAtLocation(anchorView, Gravity.CENTER, 0, 0);
                                         }
                                     });
         //Parameters
@@ -155,8 +153,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         popupWindow.setOutsideTouchable(true);
         // Using location, the PopupWindow will be displayed right under anchorView
-        popupWindow.showAtLocation(anchorView, Gravity.CENTER,
-                0, anchorView.getHeight());
+        popupWindow.showAtLocation(anchorView, Gravity.CENTER,0, 0);
     }
 
     public void popUpUser(final View anchorView , final PopupWindow popupWindow)
@@ -217,7 +214,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
                 dic.put("City", ECity.getText().toString().substring(0, 1).toUpperCase() + ECity.getText().toString().substring(1));
                 Date now = new Date();
                 dic.put("Date", new SimpleDateFormat(getString(R.string.dateFormat)).format(now));
-                dic.put("Time", new SimpleDateFormat("HH mm").format(now).replace(' ', 'h'));
+                dic.put("Time", new SimpleDateFormat("HH mm").format(now).replace(" ", " h "));
                 addNewPdf(mAttestationList, adapter, getContext(), dic);
                 popupWindow.dismiss();
             }

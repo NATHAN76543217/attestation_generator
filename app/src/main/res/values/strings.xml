@@ -7,7 +7,7 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Parametres</string>
+    <string name="action_settings">Paramètres</string>
     <string name="delete">Supprimer</string>
     <string name="undo">Annuler</string>
     <!-- NavigationBar-->
@@ -15,7 +15,7 @@
     <string name="menu_users">Mes Utilisateurs</string>
     <string name="menu_notice">Notice</string>
     <!-- PDF-->
-    <string name="pdfTemplateName">template.pdf</string>
+    <string name="pdfTemplateName">template-november.pdf</string>
     <string name="dateFormat">"dd / MM / yyyy"</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -26,10 +26,12 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <!--PopUpChoice-->
+    <string name="popUpFromUser">A partir d\'un utilisateur</string>
+    <string name="popUpNewAttestation">Nouvelle attestation</string>
     <string name="validation">Valider</string>
     <string name="edit">Editer</string>
     <!--PopUpNewTitles-->
-    <string name="popUpTitle">Nouvelle attestation</string>
+    <string name="popUpTitle">@string/popUpNewAttestation</string>
     <string name="popUpMotif">Selectionnez votre motif:</string>
     <string name="popUpDefaultMotif">Selectionnez votre motif par default:</string>
     <string name="popUpName">Entrez votre nom:</string>
@@ -43,8 +45,6 @@
     <string name="popUpGetAdresse">ex: 11 rue Jules Robert</string>
     <string name="popUpGetBirthplace">Né(e) à:</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string-array name="popUp_motifs">
         <item>Déplacement professionnel</item>
         <item>Achat de première nécessité</item>
@@ -65,7 +65,7 @@
     <!--EditUser-->
     <string name="editUserTitle">Editer utilisateur</string>
     <!--Parameters-->
-    <string name="parameters">Parametres</string>
+    <string name="parameters">Paramètres</string>
     <string name="paramBack">Valider</string>
     <string name="auto_create">Création automatique</string>
     <string name="create_for_users">Profils concernés par la création auto.</string>
@@ -75,8 +75,9 @@
     <string name="empty_fields">Certains champs sont vide</string>
     <!--Notice-->
     <string name="notice_title">Notice d\'utilisation</string>
-    <string name="notice_intro">Tout d’abord merci d’utiliser cette application, en espérant qu’elle fera votre bonheur. N’hésitez pas à nous ecrire en retour ! Votre avis nous est très important.</string>
-    <string name="notice_FAB">Le bouton attestation vous permet de créer une nouvelle attestation de deux manières différentes. Vous pouvez remplir les champs un par un avec l\'option «\u00A0nouvelle attestation\u00A0» ou bien utiliser un profil existant avec l\'option «\u00A0à partir d’un utilisateur\u00A0»</string>
+    <string name="notice_intro">Tout d’abord merci d’utiliser cette application, en espérant qu’elle fera votre bonheur. N’hésitez pas à nous écrire en retour ! Votre avis nous est très important.</string>
+    <string name="notice_t_FAB">Bouton principal</string>
+    <string name="notice_FAB">Le bouton principal vous permet de créer une nouvelle attestation de deux manières différentes. Vous pouvez remplir les champs un par un avec l\'option «\u00A0nouvelle attestation\u00A0» ou bien utiliser un profil existant avec l\'option «\u00A0à partir d’un utilisateur\u00A0»</string>
     <string name="notice_t_attestation">- Mes attestations</string>
     <string name="notice_attestation">Liste les attestations crées, il vous suffit de cliquer sur l\'une d\'entre elles pour pouvoir la visionner. Vous pouvez les supprimer en cliquant simplement sur la croix de droite.</string>
     <string name="notice_t_user">- Mes utilisateurs</string>
@@ -84,5 +85,5 @@
     <string name="notice_t_params">— Paramètres</string>
     <string name="notice_params">La génération automatique:\nLa génération automatique permet de créer une attestation à chaque ouverture de l’application. Celle-ci datera d’1/2h.\nNous vous proposons 2 paramètres pour le gerer:\n- l’activation/désactivation de la génération automatique d’attestation.\n- Le choix des utilisateurs qui verront leur attestation automatiquement crée, ainsi que le motifs à utiliser.\n</string>
     <string name="notice_disclaimer">Toute donnée passée à l’application est stockée uniquement localement et sera supprimée lors de la désinstallation de l’application.</string>
-    <string name="notice_contact">Vous pouvez nous contacter à: lecaille.nathan@outlook.fr\nCette application vous est proposée par:\nLecaille Nathan.\nRobino Luca.</string>
+    <string name="notice_contact">Vous pouvez nous contacter à: <b>lecaille.nathan@outlook.fr</b>\n\nCette application vous est proposée par:\nLecaille Nathan.\nRobino Luca.</string>
 </resources>

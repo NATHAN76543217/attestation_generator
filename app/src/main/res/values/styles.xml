@@ -6,7 +6,7 @@
         <!--couleur appBar-->
         <item name="colorPrimary">@color/navHeaderSubtitleColor</item>
         <!--couleur top appBar-->
-        <item name="colorPrimaryDark">@color/navHeaderSubtitleColor</item>
+        <item name="colorPrimaryDark">#254C75</item>
         <!--couleur Attest icon-->
         <item name="colorAccent">@color/navHeaderSubtitleColor</item>
     </style>
@@ -29,11 +29,19 @@
         <item name="android:textSize">20dp</item>
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:paddingLeft">5dp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColor">@color/colorDarkGrey</item>
     </style>
     <style name="notice_corps">
         <item name="android:textSize">15dp</item>
         <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingLeft">15dp</item>
     </style>
+    <style name="buttonApp">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorwhite</item>
+    </style>
+
 </resources>

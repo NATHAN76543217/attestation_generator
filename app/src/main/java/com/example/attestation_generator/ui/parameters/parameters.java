@@ -205,15 +205,22 @@ public class parameters extends AppCompatActivity {
                 param_desc.setText(mParamList.get(position).mDescription);
 
                 //(4) Changement de la couleur du fond de notre item
-                if (param.mType == Param.BOOLEAN)
+                if (param.mType.equals(Param.BOOLEAN))
                 {
-                    CheckBox checkBox = (CheckBox) layoutItem.findViewById(R.id.paramCheckBox);
+                    final CheckBox checkBox = (CheckBox) layoutItem.findViewById(R.id.paramCheckBox);
                     checkBox.setVisibility(View.VISIBLE);
                     checkBox.setChecked((Boolean) mParamList.get(position).Value);
                     checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                             param.setValue(b);
+                        }
+                    });
+                    //clik change checkBox
+                    layoutItem.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            checkBox.setChecked(!checkBox.isChecked());
                         }
                     });
                 }

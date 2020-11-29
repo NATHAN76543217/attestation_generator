@@ -23,7 +23,12 @@ android {
     sourceSets {
         main {
             res {
-                srcDirs 'src/main/res', 'src/main/res/layouts/params', 'src/main/res/layouts/user', 'src/main/res/layouts/attestation', 'src/main/res/layouts/fragments', 'src/main/res/layouts/nav_appBar'
+                srcDirs 'src/main/res',
+                        'src/main/res/layouts/params',
+                        'src/main/res/layouts/user',
+                        'src/main/res/layouts/attestation',
+                        'src/main/res/layouts/fragments',
+                        'src/main/res/layouts/nav_appBar'
             }
         }
     }

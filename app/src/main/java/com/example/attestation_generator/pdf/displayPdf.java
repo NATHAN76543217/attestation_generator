@@ -44,19 +44,20 @@ public class displayPdf extends AppCompatActivity {
             else
                 Log.e("My TAG", "LOAD ACTIVITY: IN--pdf_file = NULL");
         }
+        actionBar.setTitle(myPdf.getName());
         Log.i("My TAG", String.format("filename = %s", myPdf.getName()));
         Log.i("My TAG", String.format("pathname = %s", myPdf.getPath()));
         pdfView = findViewById(R.id.pdfViewer);
         pdfView.fromFile(myPdf)
                 .enableSwipe(true)
-                .swipeHorizontal(true)
+                .swipeHorizontal(false)
                 .enableDoubletap(true)
                 .defaultPage(0)
                 .enableAnnotationRendering(false)
                 .password(null)
                 .scrollHandle(null)
                 .enableAntialiasing(true)
-                .spacing(0)
+                .spacing(10)
                 .load();
         Log.i("My TAG", "--Display PDF");
     }

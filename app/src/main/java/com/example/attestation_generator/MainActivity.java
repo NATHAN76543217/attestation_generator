@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFI
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         //ADD template.pdf
-        File file = new File(getExternalFilesDir("") + java.io.File.separator + "template.pdf");
+        File file = new File(getExternalFilesDir("") + java.io.File.separator + getString(R.string.pdfTemplateName));
         if (!file.exists()) {
             Log.i("My TAG", "Create pdf template file in storage");
             AssetManager assetManager = getAssets();
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFI
             // crée pour chaque user
             for (User user : userList) {
                 if (user.getName().equals(value[0])) {
-                    Log.i("My TAG", "create auto for user " + user);
+                    Log.i("My TAG", "create auto for user " + user.getName());
                     user.setDefaultMotif(value[1]);
                     AttestationFactory.newAttestation(this, user.getDic(true));
                 }

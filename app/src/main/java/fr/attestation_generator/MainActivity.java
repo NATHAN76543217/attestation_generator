@@ -1,4 +1,4 @@
-package com.example.attestation_generator;
+package fr.attestation_generator;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,15 +6,15 @@ import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 
-import com.example.attestation_generator.pdf.displayPdf;
-import com.example.attestation_generator.ui.attestations.Attestation;
-import com.example.attestation_generator.ui.attestations.AttestationFactory;
-import com.example.attestation_generator.ui.home.AttestListAdapter;
-import com.example.attestation_generator.ui.home.HomeFragment;
-import com.example.attestation_generator.ui.parameters.Param;
-import com.example.attestation_generator.ui.parameters.parameters;
-import com.example.attestation_generator.ui.users.User;
-import com.example.attestation_generator.ui.users.UsersFragment;
+import fr.attestation_generator.pdf.displayPdf;
+import fr.attestation_generator.ui.attestations.Attestation;
+import fr.attestation_generator.ui.attestations.AttestationFactory;
+import fr.attestation_generator.ui.home.AttestListAdapter;
+import fr.attestation_generator.ui.home.HomeFragment;
+import fr.attestation_generator.ui.parameters.Param;
+import fr.attestation_generator.ui.parameters.parameters;
+import fr.attestation_generator.ui.users.User;
+import fr.attestation_generator.ui.users.UsersFragment;
 
 import android.preference.PreferenceManager;
 import android.util.Log;

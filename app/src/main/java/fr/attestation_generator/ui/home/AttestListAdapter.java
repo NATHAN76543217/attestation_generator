@@ -1,4 +1,4 @@
-package com.example.attestation_generator.ui.home;
+package fr.attestation_generator.ui.home;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.attestation_generator.R;
-import com.example.attestation_generator.ui.attestations.Attestation;
+import fr.attestation_generator.R;
+import fr.attestation_generator.ui.attestations.Attestation;
 
 import java.util.List;
 

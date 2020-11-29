@@ -1,6 +1,5 @@
-package com.example.attestation_generator.ui.home;
+package fr.attestation_generator.ui.home;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -8,11 +7,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.attestation_generator.R;
-import com.example.attestation_generator.ui.attestations.Attestation;
+import fr.attestation_generator.R;
 
 import java.io.File;
-import java.util.List;
 
 public class HomeViewHolder extends RecyclerView.ViewHolder{
 
@@ -21,7 +18,7 @@ public class HomeViewHolder extends RecyclerView.ViewHolder{
     private ImageButton mImageButton;
     private HomeFragment.OnFIL mClickListener;
     private File myPdf;
-    
+
     public HomeViewHolder(@NonNull final View itemView, HomeFragment.OnFIL _clickListener) {
         super(itemView);
 

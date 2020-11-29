@@ -1,7 +1,6 @@
-package com.example.attestation_generator.ui.users;
+package fr.attestation_generator.ui.users;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +9,11 @@ import android.widget.PopupWindow;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.attestation_generator.R;
-import com.example.attestation_generator.ui.attestations.Attestation;
-import com.example.attestation_generator.ui.home.AttestListAdapter;
+import fr.attestation_generator.R;
+import fr.attestation_generator.ui.attestations.Attestation;
+import fr.attestation_generator.ui.home.AttestListAdapter;
 
 import java.util.List;
 

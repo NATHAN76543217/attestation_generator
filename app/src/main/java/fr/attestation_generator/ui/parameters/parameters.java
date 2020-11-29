@@ -1,16 +1,14 @@
-package com.example.attestation_generator.ui.parameters;
+package fr.attestation_generator.ui.parameters;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -31,14 +29,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
-import com.example.attestation_generator.R;
-import com.example.attestation_generator.ui.users.User;
-import com.example.attestation_generator.ui.users.UsersFragment;
+import fr.attestation_generator.R;
+import fr.attestation_generator.ui.users.User;
+import fr.attestation_generator.ui.users.UsersFragment;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
-import java.util.zip.Inflater;
 
 public class parameters extends AppCompatActivity {
 

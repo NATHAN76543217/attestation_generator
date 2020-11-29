@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.attestation_generator">
+    package="fr.attestation_generator">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -12,19 +12,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.parameters.parameters"></activity>
+        <activity android:name="fr.attestation_generator.ui.parameters.parameters" />
         <activity
-            android:name=".pdf.displayPdf"
+            android:name="fr.attestation_generator.pdf.displayPdf"
             android:label="@string/title_activity_display_pdf"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="fr.attestation_generator.MainActivity"
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.attestation_generator.MainActivity" />
+                android:value="fr.attestation_generator.MainActivity" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="fr.attestation_generator.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:launchMode="singleTop">

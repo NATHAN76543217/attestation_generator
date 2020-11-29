@@ -1,17 +1,12 @@
-package com.example.attestation_generator.ui.users;
+package fr.attestation_generator.ui.users;
 
-import android.content.Context;
 import android.util.Log;
 
-import java.io.File;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Hashtable;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 public class User implements Serializable {
 

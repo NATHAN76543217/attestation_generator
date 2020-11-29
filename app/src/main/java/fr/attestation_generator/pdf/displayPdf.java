@@ -1,23 +1,17 @@
-package com.example.attestation_generator.pdf;
+package fr.attestation_generator.pdf;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.github.barteksc.pdfviewer.PDFView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NavUtils;
 
 import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
 
-import com.example.attestation_generator.R;
+import fr.attestation_generator.R;
 
 import java.io.File;
 

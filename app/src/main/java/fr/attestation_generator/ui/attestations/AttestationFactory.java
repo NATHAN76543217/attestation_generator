@@ -1,16 +1,12 @@
-package com.example.attestation_generator.ui.attestations;
+package fr.attestation_generator.ui.attestations;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.attestation_generator.R;
+import fr.attestation_generator.R;
 import com.itextpdf.text.BadElementException;
-import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
@@ -19,32 +15,16 @@ import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.AcroFields;
 import com.itextpdf.text.pdf.BarcodeQRCode;
 import com.itextpdf.text.pdf.ColumnText;
-import com.itextpdf.text.pdf.PRAcroForm;
-import com.itextpdf.text.pdf.PdfAcroForm;
 import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfDictionary;
-import com.itextpdf.text.pdf.PdfImportedPage;
-import com.itextpdf.text.pdf.PdfName;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.pdf.qrcode.BitMatrix;
-import com.itextpdf.text.pdf.qrcode.QRCodeWriter;
-import com.itextpdf.text.pdf.qrcode.WriterException;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Date;
 import java.util.Hashtable;
-import java.util.Map;
 import java.util.Set;
-
-import static android.content.ContentValues.TAG;
 
 public class AttestationFactory {
 
@@ -88,7 +68,6 @@ public class AttestationFactory {
 
             AcroFields form = stamper.getAcroFields();
             Set<String> names = form.getFields().keySet();
-            Log.i("My TAG", "Lenght == " + names.size());
             //fill pdf fields
             form.setField("Nom Prénom", (String) dic.get("Name"));
             form.setField("Date de naissance", (String) dic.get("Birthday"));

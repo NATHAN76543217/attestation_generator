@@ -1,4 +1,4 @@
-package com.example.attestation_generator.ui.home;
+package fr.attestation_generator.ui.home;
 
 import android.Manifest;
 import android.content.Context;
@@ -28,12 +28,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.attestation_generator.R;
-import com.example.attestation_generator.ui.attestations.Attestation;
-import com.example.attestation_generator.ui.attestations.AttestationFactory;
-import com.example.attestation_generator.ui.users.User;
-import com.example.attestation_generator.ui.users.UsersFragment;
-import com.example.attestation_generator.ui.users.UsersListAdapter;
+import fr.attestation_generator.R;
+import fr.attestation_generator.ui.attestations.Attestation;
+import fr.attestation_generator.ui.attestations.AttestationFactory;
+import fr.attestation_generator.ui.users.User;
+import fr.attestation_generator.ui.users.UsersFragment;
+import fr.attestation_generator.ui.users.UsersListAdapter;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 import com.github.barteksc.pdfviewer.listener.OnPageErrorListener;
@@ -49,6 +49,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Locale;
 
 public class HomeFragment extends Fragment implements OnLoadCompleteListener, OnPageChangeListener, OnPageErrorListener, AdapterView.OnItemSelectedListener {
 
@@ -114,11 +115,10 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
                     return 0;
                 }
             });
-            this.adapter = new AttestListAdapter(this.mAttestationList, mclickListener);
-            this.mRecyclerView.setAdapter(this.adapter);
-
         }
-
+        this.adapter = new AttestListAdapter(this.mAttestationList, mclickListener);
+        Log.i("My TAG", "ADAPTER=" + this.adapter);
+        this.mRecyclerView.setAdapter(this.adapter);
     }
 
     public void choosePopup(final View anchorView)
@@ -163,7 +163,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
         popupWindow.setContentView(userView);
 
         final Spinner spin = (Spinner) userView.findViewById(R.id.popUpUserSpin);
-        ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.popUp_motifs));
+        ArrayAdapter<String> aa = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.popUp_motifs));
         spin.setAdapter(aa);
 
         RecyclerView userRecycler = userView.findViewById(R.id.popUpUserList);
@@ -187,7 +187,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
     public void popUpNew(final View anchorView , final PopupWindow popupWindow, final View popupView) {
         //link items
         final Spinner spin = (Spinner) popupView.findViewById(R.id.popUpSpinner);
-        ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.popUp_motifs));
+        ArrayAdapter<String> aa = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.popUp_motifs));
         spin.setAdapter(aa);
         final EditText EName = (EditText) popupView.findViewById(R.id.popUpGetName);
         final EditText ECity = (EditText) popupView.findViewById(R.id.popUpGetCity);
@@ -214,8 +214,8 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
                 dic.put("Adresse", EAdresse.getText().toString());
                 dic.put("City", ECity.getText().toString().substring(0, 1).toUpperCase() + ECity.getText().toString().substring(1));
                 Date now = new Date();
-                dic.put("Date", new SimpleDateFormat(getString(R.string.dateFormat)).format(now));
-                dic.put("Time", new SimpleDateFormat("HH mm").format(now).replace(" ", " h "));
+                dic.put("Date", new SimpleDateFormat(getString(R.string.dateFormat), Locale.getDefault()).format(now));
+                dic.put("Time", new SimpleDateFormat("HH mm", Locale.getDefault()).format(now).replace(" ", " h "));
                 addNewPdf(mAttestationList, adapter, getContext(), dic);
                 popupWindow.dismiss();
             }
@@ -297,7 +297,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
 
     }
 
-    
+
     public interface OnFIL{
         //Par ce cette méthode le fragment va communiquer avec l'activity (lui demander dans notre cas de lancer une nouvelle activity tout en servant des données en paramètre de la méthode pour un traitement spécifique
         void onFragInteract(File data);

@@ -1,25 +1,17 @@
-package com.example.attestation_generator.ui.attestations;
+package fr.attestation_generator.ui.attestations;
 
 
 import android.content.Context;
 import android.os.Build;
 import android.util.Log;
 
-import androidx.annotation.RequiresApi;
-
-import com.example.attestation_generator.R;
+import fr.attestation_generator.R;
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.Object;
 import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.nio.file.attribute.DosFileAttributes;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Hashtable;

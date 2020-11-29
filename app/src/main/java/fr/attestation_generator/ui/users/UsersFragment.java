@@ -1,4 +1,4 @@
-package com.example.attestation_generator.ui.users;
+package fr.attestation_generator.ui.users;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -22,9 +22,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.attestation_generator.R;
-import com.example.attestation_generator.ui.attestations.Attestation;
-import com.example.attestation_generator.ui.home.AttestListAdapter;
+import fr.attestation_generator.R;
+import fr.attestation_generator.ui.attestations.Attestation;
+import fr.attestation_generator.ui.home.AttestListAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

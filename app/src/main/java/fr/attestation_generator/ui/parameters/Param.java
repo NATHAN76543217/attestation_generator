@@ -1,4 +1,4 @@
-package com.example.attestation_generator.ui.parameters;
+package fr.attestation_generator.ui.parameters;
 
 import android.content.SharedPreferences;
 import android.util.Log;

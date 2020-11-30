@@ -38,10 +38,8 @@ import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 import com.github.barteksc.pdfviewer.listener.OnPageErrorListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.itextpdf.text.DocumentException;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;

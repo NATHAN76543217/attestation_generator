@@ -3,8 +3,6 @@ package fr.attestation_generator.ui.attestations;
 import android.content.Context;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
 import fr.attestation_generator.R;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.DocumentException;

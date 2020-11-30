@@ -6,7 +6,6 @@ import android.os.Build;
 import android.util.Log;
 
 import fr.attestation_generator.R;
-import com.itextpdf.text.Document;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +20,6 @@ public class Attestation {
 
     private final File    PDF_file;
     private final String  fileName;
-    private int     id;
     private final Context context;
     private BasicFileAttributes mFileAttributes;
     private String creationDate;
@@ -45,7 +43,6 @@ public class Attestation {
     public Attestation(Context context, Hashtable<String, Object> dic)
     {
         this.context = context;
-        Document PDF_doc = (Document) dic.get("Document");
         this.PDF_file = (File) dic.get("PDF");
         this.fileName = (String) dic.get("fileName");
         try {
@@ -82,18 +79,12 @@ public class Attestation {
         return pdfFolder;
     }
 
-    public int getId()
-    {
-        return this.id;
-    }
-
     public String getFileName()
     {
         return this.fileName;
     }
 
     public File getPDF_file() {
-        Log.i("My TAG", String.format("GET: Att.PDF_file = %s", PDF_file.getName()));
         return PDF_file;
     }
 

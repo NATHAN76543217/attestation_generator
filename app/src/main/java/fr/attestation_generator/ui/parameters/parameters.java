@@ -23,7 +23,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -64,19 +63,17 @@ public class parameters extends AppCompatActivity {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, final int position, long ID) {
-                Log.i("My TAG", "clicked");
                 switcher.showNext();
 
-                //TODO ajouter valeur de spin à la sauvegarde puis la récuperer
                 bt_save = findViewById(R.id.paramBack);
                 bt_save.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         String value = "";
-                        for (int i = 0; i < userList.size(); i++)
+                        for (User usr : userList)
                         {
-                            if (userList.get(i).isAutoCreate)
-                                value += userList.get(i).getName() + ":" + userList.get(i).getDefaultMotif() +";";
+                            if (usr.isAutoCreate)
+                                value += usr.getName() + ":" + usr.getDefaultMotif() + ";";
                         }
                         mParamList.get(position).setValue(value);
                         Log.i("My TAG", "set Ulist: " + value);
@@ -274,11 +271,10 @@ public class parameters extends AppCompatActivity {
             TextView usr_name = layoutItem.findViewById(R.id.paramUserName);
             CheckBox usr_checkbox = layoutItem.findViewById(R.id.paramUserCheckBox);
             Spinner spin = layoutItem.findViewById(R.id.paramUserSpin);
-            ArrayAdapter aa = new ArrayAdapter(parameters.this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.popUp_motifs));
+            ArrayAdapter<String> aa = new ArrayAdapter<>(parameters.this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.popUp_motifs));
 
             //(3) : Renseignement des valeurs
             spin.setAdapter(aa);
-            Log.i("My TAG", "To check: " + usr.getDefaultMotif());
             spin.setSelection(Integer.parseInt(usr.getDefaultMotif()));
             usr_name.setText(mUserList.get(position).getName());
             usr_checkbox.setChecked(usr.isAutoCreate);

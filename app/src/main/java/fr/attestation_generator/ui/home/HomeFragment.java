@@ -74,19 +74,13 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
             }
         });
 
-        try {
-            this.configureRecyclerView();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        }
+        this.configureRecyclerView();
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         return root;
     }
 
-    private void configureRecyclerView() throws FileNotFoundException, DocumentException {
+    private void configureRecyclerView() {
         this.mAttestationList = new ArrayList<>();
         Log.i("My TAG", "Ask Write permission");
         if (ContextCompat.checkSelfPermission(getActivity(),
@@ -99,11 +93,11 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
             // has the permission.
             Log.i("My TAG", "Write Permission granted");
             File folder = AttestationFactory.getPdfFolder(getContext());
-            File files[] = folder.listFiles();
+            File[] files = folder.listFiles();
             Context ctx = getContext();
             Log.i("My TAG", String.format("Files: Found %d files", files.length));
-            for (int i = 0; i < files.length; i++) {
-                this.mAttestationList.add(new Attestation(ctx, files[i]));
+            for (File file : files) {
+                this.mAttestationList.add(new Attestation(ctx, file));
             }
             //sort mAttestation de la plus recente a la plus ancienne
             Collections.sort(mAttestationList, new Comparator<Attestation>() {
@@ -127,8 +121,8 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
 
         final PopupWindow popupWindow = new PopupWindow(chooseView,
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        Button fromUser = (Button) chooseView.findViewById(R.id.popUpChoiceFrom);
-        Button fromNew = (Button) chooseView.findViewById(R.id.popUpChoiceNew);
+        Button fromUser = chooseView.findViewById(R.id.popUpChoiceFrom);
+        Button fromNew = chooseView.findViewById(R.id.popUpChoiceNew);
         fromNew.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
@@ -161,7 +155,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
         View userView = getLayoutInflater().inflate(R.layout.pop_up_from_user_layout, null);
         popupWindow.setContentView(userView);
 
-        final Spinner spin = (Spinner) userView.findViewById(R.id.popUpUserSpin);
+        final Spinner spin = userView.findViewById(R.id.popUpUserSpin);
         ArrayAdapter<String> aa = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.popUp_motifs));
         spin.setAdapter(aa);
 
@@ -185,15 +179,15 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
 
     public void popUpNew(final View anchorView , final PopupWindow popupWindow, final View popupView) {
         //link items
-        final Spinner spin = (Spinner) popupView.findViewById(R.id.popUpSpinner);
+        final Spinner spin = popupView.findViewById(R.id.popUpSpinner);
         ArrayAdapter<String> aa = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.popUp_motifs));
         spin.setAdapter(aa);
-        final EditText EName = (EditText) popupView.findViewById(R.id.popUpGetName);
-        final EditText ECity = (EditText) popupView.findViewById(R.id.popUpGetCity);
-        final EditText EAdresse = (EditText) popupView.findViewById(R.id.popUpGetAdresse);
-        final EditText EBirthplace = (EditText) popupView.findViewById(R.id.popUpGetBirthplace);
-        final DatePicker datepicker=(DatePicker)popupView.findViewById(R.id.popUpGetBirthday);
-        Button BT = (Button) popupView.findViewById(R.id.popUpButton);
+        final EditText EName = popupView.findViewById(R.id.popUpGetName);
+        final EditText ECity = popupView.findViewById(R.id.popUpGetCity);
+        final EditText EAdresse = popupView.findViewById(R.id.popUpGetAdresse);
+        final EditText EBirthplace = popupView.findViewById(R.id.popUpGetBirthplace);
+        final DatePicker datepicker= popupView.findViewById(R.id.popUpGetBirthday);
+        Button BT = popupView.findViewById(R.id.popUpButton);
         BT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View popUpView) {
@@ -203,10 +197,10 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
                     Toast.makeText(anchorView.getContext(),getString(R.string.empty_fields), Toast.LENGTH_LONG).show();
                     return;
                 }
-                Hashtable dic = new Hashtable();
+                Hashtable<String,Object> dic = new Hashtable<>();
                 dic.put("Motif", String.valueOf(spin.getSelectedItemId()));
                 dic.put("Name", EName.getText().toString());
-                SimpleDateFormat sdf = new SimpleDateFormat(getString(R.string.dateFormat));
+                SimpleDateFormat sdf = new SimpleDateFormat(getString(R.string.dateFormat), Locale.getDefault());
                 dic.put("Birthday", sdf.format(datepicker.getCalendarView().getDate()));
                 dic.put("Birthplace", EBirthplace.getText().toString());
                 dic.put("Adresse", EAdresse.getText().toString());
@@ -228,7 +222,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
         });
     }
 
-    public static void addNewPdf(List<Attestation> AttestationList, AttestListAdapter adapter, Context context, Hashtable dic)
+    public static void addNewPdf(List<Attestation> AttestationList, AttestListAdapter adapter, Context context, Hashtable<String, Object> dic)
     {
         AttestationList.add(AttestationFactory.newAttestation(context, dic));
         //trie mAttestation de la plus recente a la plus ancienne
@@ -262,7 +256,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
     // Gestion click
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (context instanceof OnFIL) {
             //Ici, on affecte l'instance OnTonFragmentInteractionListener à notre objet mListener

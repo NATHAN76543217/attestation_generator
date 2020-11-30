@@ -44,6 +44,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.3.1'
     implementation 'androidx.navigation:navigation-ui:2.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation 'androidx.preference:preference:1.1.1'
     implementation 'com.itextpdf:itextg:5.5.10'
     implementation 'androidx.cardview:cardview:1.0.0'
     //noinspection GradleCompatible

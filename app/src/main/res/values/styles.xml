@@ -21,12 +21,12 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="notice_title">
-        <item name="android:textSize">30dp</item>
+        <item name="android:textSize">30sp</item>
         <item name="android:paddingTop">10dp</item>
         <item name="android:paddingBottom">15dp</item>
     </style>
     <style name="notice_subtitle">
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_marginBottom">5dp</item>
         <item name="android:paddingLeft">5dp</item>
@@ -34,7 +34,7 @@
         <item name="android:textColor">@color/colorDarkGrey</item>
     </style>
     <style name="notice_corps">
-        <item name="android:textSize">15dp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:paddingBottom">5dp</item>
         <item name="android:paddingLeft">15dp</item>
         <item name="android:lineSpacingMultiplier">1.2</item>

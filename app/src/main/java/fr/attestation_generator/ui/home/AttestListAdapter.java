@@ -17,10 +17,10 @@ import java.util.List;
 public class AttestListAdapter extends RecyclerView.Adapter<HomeViewHolder> {
 
     //FOR INTERACTION
-    private HomeFragment.OnFIL mclickListener;
+    private final HomeFragment.OnFIL mclickListener;
 
     // FOR DATA
-    private List<Attestation> mAttestationList;
+    private final List<Attestation> mAttestationList;
 
     // CONSTRUCTOR
     public AttestListAdapter(List<Attestation> attestationList, HomeFragment.OnFIL _clickListener) {

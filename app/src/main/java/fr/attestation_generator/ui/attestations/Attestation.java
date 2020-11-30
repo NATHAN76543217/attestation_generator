@@ -19,15 +19,10 @@ import java.util.Locale;
 
 public class Attestation {
 
-    private String  User;
-    private Document    PDF_doc;
-    private File    PDF_file;
-    private String  filepath;
-    private String  fileName;
-    private String motif;
-    private int     Date;
+    private final File    PDF_file;
+    private final String  fileName;
     private int     id;
-    private Context context;
+    private final Context context;
     private BasicFileAttributes mFileAttributes;
     private String creationDate;
 
@@ -35,31 +30,29 @@ public class Attestation {
     {
         this.context = context;
         this.fileName = pdf.getName().substring(0, pdf.getName().length() - 4);
-        this.filepath = getPdfFolder() + "/" + this.fileName;
         this.PDF_file = pdf;
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 this.mFileAttributes = Files.readAttributes(this.PDF_file.toPath(), BasicFileAttributes.class);
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(context.getString(R.string.dateFormat), Locale.getDefault());
-                creationDate = simpleDateFormat.format(new Date(mFileAttributes.creationTime().toMillis())).toString();
+                creationDate = simpleDateFormat.format(new Date(mFileAttributes.creationTime().toMillis()));
             }
         } catch (IOException  e) {
             e.printStackTrace();
         }
     }
 
-    public Attestation(Context context, Hashtable dic)
+    public Attestation(Context context, Hashtable<String, Object> dic)
     {
         this.context = context;
-        this.PDF_doc = (Document) dic.get("Document");
+        Document PDF_doc = (Document) dic.get("Document");
         this.PDF_file = (File) dic.get("PDF");
         this.fileName = (String) dic.get("fileName");
-        this.filepath = (String) dic.get("filePath");
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 this.mFileAttributes = Files.readAttributes(this.PDF_file.toPath(), BasicFileAttributes.class);
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(context.getString(R.string.dateFormat), Locale.getDefault());
-                creationDate = simpleDateFormat.format(new Date(mFileAttributes.creationTime().toMillis())).toString();
+                creationDate = simpleDateFormat.format(new Date(mFileAttributes.creationTime().toMillis()));
             }
         } catch (IOException  e) {
             e.printStackTrace();
@@ -93,29 +86,10 @@ public class Attestation {
     {
         return this.id;
     }
-    public void setId(Integer id)
-    {
-        this.id = id;
-    }
 
     public String getFileName()
     {
         return this.fileName;
-    }
-    public String getFilepath(Boolean extention)
-    {
-        if (extention)
-        {
-            return  this.filepath ;
-        }
-        else
-            return  this.filepath.substring(0, filepath.length() - 4);
-
-    }
-
-    public Document getPDF_doc()
-    {
-        return this.PDF_doc;
     }
 
     public File getPDF_file() {
@@ -123,16 +97,7 @@ public class Attestation {
         return PDF_file;
     }
 
-    public String PdfIsCreate()
-    {
-        if (this.PDF_file == null) {
-            return ("NULL");
-        }
-        else
-            return ("PDF create");
-    }
-
-	public void deleteFile() {
+    public void deleteFile() {
 	    PDF_file.delete();
     }
 

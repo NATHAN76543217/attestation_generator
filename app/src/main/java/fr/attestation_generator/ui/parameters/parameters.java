@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.preference.PreferenceManager;
 
 import android.Manifest;
 import android.content.Context;
@@ -11,7 +12,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -25,6 +25,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
@@ -124,7 +125,7 @@ public class parameters extends AppCompatActivity {
         String[] auto_list = paramValue.split(";");
         //récupere les uttilisateurs auto-create
         for(String str : auto_list) {
-            String value[] = str.split(":");
+            String[] value = str.split(":");
             for (User user : userList) {
                 if (user.getName().equals(value[0])) {
                     user.setIsAutoCreate(true);
@@ -137,7 +138,7 @@ public class parameters extends AppCompatActivity {
 
     private List<Param> getListOfParam(){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(parameters.this);
-        ArrayList<Param> listParam = new ArrayList<Param>();
+        ArrayList<Param> listParam = new ArrayList<>();
         listParam.add(new Param(getString(R.string.auto_create), getString(R.string.paramAutoCreate) , preferences, Param.BOOLEAN));
         listParam.add(new Param(getString(R.string.create_for_users), getString(R.string.paramUserList) , preferences, Param.STRING));
         return  listParam;
@@ -153,11 +154,11 @@ public class parameters extends AppCompatActivity {
             Log.i("My TAG", "Save param: " + mParamList.get(i).Value);
         }
     }
-
-    public class ParamAdapter extends BaseAdapter {
-        Context ctx;
-        List<Param> mParamList;
-        private LayoutInflater mInflater;
+    //Class adapter form param object
+    public static class ParamAdapter extends BaseAdapter {
+        final Context ctx;
+        final List<Param> mParamList;
+        private final LayoutInflater mInflater;
 
         public ParamAdapter(Context context, List<Param> paramList) {
             ctx = context;
@@ -182,19 +183,19 @@ public class parameters extends AppCompatActivity {
 
         @Override
             public View getView(int position, View convertView, ViewGroup parent) {
-                LinearLayout layoutItem;
+                RelativeLayout layoutItem;
 
                 //(1) : Réutilisation des layouts
                 if (convertView == null) {
                     //Initialisation de notre item à partir du  layout XML "personne_layout.xml"
-                    layoutItem = (LinearLayout) mInflater.inflate(R.layout.activity_parameters_item, parent, false);
+                    layoutItem = (RelativeLayout) mInflater.inflate(R.layout.activity_parameters_item, parent, false);
                 } else {
-                    layoutItem = (LinearLayout) convertView;
+                    layoutItem = (RelativeLayout) convertView;
                 }
                 final Param param = mParamList.get(position);
                 //(2) : Récupération des TextView de notre layout
-                TextView param_name = (TextView)layoutItem.findViewById(R.id.paramName);
-                TextView param_desc = (TextView) layoutItem.findViewById(R.id.paramDescription);
+                TextView param_name = layoutItem.findViewById(R.id.paramName);
+                TextView param_desc = layoutItem.findViewById(R.id.paramDescription);
 
                 //(3) : Renseignement des valeurs
                 param_name.setText(mParamList.get(position).mName);
@@ -203,7 +204,7 @@ public class parameters extends AppCompatActivity {
                 //(4) Changement de la couleur du fond de notre item
                 if (param.mType.equals(Param.BOOLEAN))
                 {
-                    final CheckBox checkBox = (CheckBox) layoutItem.findViewById(R.id.paramCheckBox);
+                    final CheckBox checkBox = layoutItem.findViewById(R.id.paramCheckBox);
                     checkBox.setVisibility(View.VISIBLE);
                     checkBox.setChecked((Boolean) mParamList.get(position).Value);
                     checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -220,7 +221,7 @@ public class parameters extends AppCompatActivity {
                         }
                     });
                 }
-                else if(param.mType == Param.STRING)
+                else if(param.mType.equals(Param.STRING))
                 {
 
                 }
@@ -231,9 +232,9 @@ public class parameters extends AppCompatActivity {
 
     public class UserAdapter extends BaseAdapter
     {
-        List<User> mUserList;
-        Context mCtx;
-        private LayoutInflater mInflater;
+        final List<User> mUserList;
+        final Context mCtx;
+        private final LayoutInflater mInflater;
 
         public UserAdapter(Context context, List<User> userList)
         {
@@ -259,19 +260,19 @@ public class parameters extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            LinearLayout layoutItem;
+            RelativeLayout layoutItem;
 
             //(1) : Réutilisation des layouts
             if (convertView == null) {
                 //Initialisation de notre item à partir du  layout XML "personne_layout.xml"
-                layoutItem = (LinearLayout) mInflater.inflate(R.layout.param_user_list_item, parent, false);
+                layoutItem = (RelativeLayout) mInflater.inflate(R.layout.param_user_list_item, parent, false);
             } else {
-                layoutItem = (LinearLayout) convertView;
+                layoutItem = (RelativeLayout) convertView;
             }
             final User usr = mUserList.get(position);
             //(2) : Récupération des TextView de notre layout
-            TextView usr_name = (TextView)layoutItem.findViewById(R.id.paramUserName);
-            CheckBox usr_checkbox = (CheckBox) layoutItem.findViewById(R.id.paramUserCheckBox);
+            TextView usr_name = layoutItem.findViewById(R.id.paramUserName);
+            CheckBox usr_checkbox = layoutItem.findViewById(R.id.paramUserCheckBox);
             Spinner spin = layoutItem.findViewById(R.id.paramUserSpin);
             ArrayAdapter aa = new ArrayAdapter(parameters.this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.popUp_motifs));
 
@@ -307,13 +308,12 @@ public class parameters extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                if (switcher.getDisplayedChild() == 0)
-                    this.finish();
-                else
-                    bt_save.callOnClick();
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            if (switcher.getDisplayedChild() == 0)
+                this.finish();
+            else
+                bt_save.callOnClick();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

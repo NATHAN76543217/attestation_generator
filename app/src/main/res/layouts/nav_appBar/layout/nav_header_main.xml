@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="190dp"
     android:background="@drawable/nav_header_background"
@@ -16,25 +15,24 @@
     <TextView
         android:layout_width="270dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:paddingTop="16dp"
-        android:text="Generateur d\'attestations"
+        android:text="@string/nav_header_title"
         android:textColor="@color/navHeaderTitleColor"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="35dp"
+        android:textSize="35sp"
         android:textStyle="bold"
         android:fontFamily="sans-serif-black"
         />
 
     <!--Nav Header Subtitle-->
     <TextView
-        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
+        android:layout_marginStart="50dp"
         android:textColor="@color/navHeaderSubtitleColor"
-        android:textSize="25dp"
-        android:text="2020"
+        android:textSize="25sp"
+        android:text="@string/nav_header_subtitle"
         android:fontFamily="sans-serif-black"
         android:textStyle="italic"
         />

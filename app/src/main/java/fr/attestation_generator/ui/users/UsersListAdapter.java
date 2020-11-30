@@ -19,14 +19,14 @@ import java.util.List;
 
 public class UsersListAdapter extends RecyclerView.Adapter<UsersViewHolder> {
 
-    private List<User> mUserList;
+    private final List<User> mUserList;
     final private UsersFragment.userinterface mOnClickListener;
-    private List<Attestation> mAttestationList;
-    private AttestListAdapter mAdapter;
-    private Context mcontext;
-    private PopupWindow mPopupWindow;
-    private Button mBtDel;
-    private Spinner mSpinMotif;
+    private final List<Attestation> mAttestationList;
+    private final AttestListAdapter mAdapter;
+    private final Context mcontext;
+    private final PopupWindow mPopupWindow;
+    private final Button mBtDel;
+    private final Spinner mSpinMotif;
 
     public UsersListAdapter(PopupWindow popupWindow, List<Attestation> attestationList, AttestListAdapter adapter, Context context, List<User> UserList, UsersFragment.userinterface onClickListener, Button btDel, Spinner spin) {
         this.mUserList = UserList;

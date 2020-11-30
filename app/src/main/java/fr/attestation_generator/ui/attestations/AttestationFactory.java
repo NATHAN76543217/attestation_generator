@@ -20,23 +20,17 @@ import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Hashtable;
-import java.util.Set;
+import java.util.Objects;
 
 public class AttestationFactory {
 
-    //de 0 à 8
-    static float y_box[] = {230f,275f, 333f,375f, 415f,455f, 515f,555f, 600f};
-
-    static public Attestation newAttestation(Context context, Hashtable dic)
+    static public Attestation newAttestation(Context context, Hashtable<String, Object> dic)
     {
         try {
             return new Attestation(context, createAttestation(context, dic));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (DocumentException e) {
             e.printStackTrace();
         }
@@ -44,7 +38,7 @@ public class AttestationFactory {
     }
 
     //crée un nouveau pdf puis le passe a fillAttestation
-    static private Hashtable createAttestation(Context context, Hashtable dic) throws FileNotFoundException, DocumentException {
+    static private Hashtable<String,Object> createAttestation(Context context, Hashtable<String,Object> dic) throws DocumentException {
 
         //Choose new file name
         String strName = dic.get("Name") + " " + String.valueOf(dic.get("Time")).substring(0, 2) + "h" + String.valueOf(dic.get("Time")).substring(3);
@@ -56,18 +50,17 @@ public class AttestationFactory {
     }
 
     //remplie un pdf avec les information utilisateur
-    private static Hashtable fillAttestation(Context context, Hashtable dic) throws DocumentException {
+    private static Hashtable<String,Object> fillAttestation(Context context, Hashtable<String,Object> dic) throws DocumentException {
         //copy template pdf
         String filepath = (String) dic.get("filePath");
 
         Log.i("My TAG", "CREATE: " + filepath);
         File NewPDF = new File(filepath);
         try {
-            PdfReader reader = new PdfReader(context.getExternalFilesDir("").getPath() + File.separator + context.getString(R.string.pdfTemplateName));
+            PdfReader reader = new PdfReader(Objects.requireNonNull(context.getExternalFilesDir("")).getPath() + File.separator + context.getString(R.string.pdfTemplateName));
             PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(NewPDF));
 
             AcroFields form = stamper.getAcroFields();
-            Set<String> names = form.getFields().keySet();
             //fill pdf fields
             form.setField("Nom Prénom", (String) dic.get("Name"));
             form.setField("Date de naissance", (String) dic.get("Birthday"));
@@ -133,7 +126,7 @@ public class AttestationFactory {
         }
         return pdfFolder;
     }
-    public static @NonNull Image createQR(String data) {
+    public static Image createQR(String data) {
         Image qrcodeImage = null;
         try {
             BarcodeQRCode qrcode = new BarcodeQRCode(data, 1, 1, null);

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.preference.PreferenceManager;
 
 import fr.attestation_generator.R;
 import fr.attestation_generator.ui.attestations.Attestation;
@@ -30,11 +30,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Locale;
 
 public class UsersFragment extends Fragment {
 
     private UsersListAdapter mUsersAdapter;
-    private RecyclerView mUsersView;
     private List<User> mUsersList;
     private UsersFragment.userinterface mUserListener;
 
@@ -46,9 +46,9 @@ public class UsersFragment extends Fragment {
         final Button btSub = root.findViewById(R.id.usersBTsub);
         final Button btDel = root.findViewById(R.id.userDeleteBt);
         //parametre RecyclerView
-        mUsersView = root.findViewById(R.id.usersView);
-        mUsersView.setHasFixedSize(true);
-        mUsersView.setLayoutManager(new LinearLayoutManager(root.getContext()));
+        RecyclerView usersView = root.findViewById(R.id.usersView);
+        usersView.setHasFixedSize(true);
+        usersView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         //uncomment to start with empty SharedPreferences
         //PreferenceManager.getDefaultSharedPreferences(getContext()).edit().clear().apply();
 
@@ -56,7 +56,7 @@ public class UsersFragment extends Fragment {
         mUsersList = new ArrayList<>();
         fillUsersList(getContext(), mUsersList);
         this.mUsersAdapter = new UsersListAdapter(null, null, null, getContext(), this.mUsersList, mUserListener, btDel, null);
-        this.mUsersView.setAdapter(this.mUsersAdapter);
+        usersView.setAdapter(this.mUsersAdapter);
         //add click listener
         btAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,22 +111,22 @@ public class UsersFragment extends Fragment {
     public void newUser(final View anchorView) {
         View popupView = getLayoutInflater().inflate(R.layout.pop_up_add_user, null);
         final PopupWindow popupWindow = new PopupWindow(popupView,
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
 
-        final EditText EName = (EditText) popupView.findViewById(R.id.popUpGetName);
-        final EditText ECity = (EditText) popupView.findViewById(R.id.popUpGetCity);
-        final EditText EAdresse = (EditText) popupView.findViewById(R.id.popUpGetAdresse);
-        final EditText EBirthplace = (EditText) popupView.findViewById(R.id.popUpGetBirthplace);
-        final DatePicker datepicker=(DatePicker)popupView.findViewById(R.id.popUpGetBirthday);
-        Button back = (Button) popupView.findViewById(R.id.back_bt);
+        final EditText EName = popupView.findViewById(R.id.popUpGetName);
+        final EditText ECity = popupView.findViewById(R.id.popUpGetCity);
+        final EditText EAdresse = popupView.findViewById(R.id.popUpGetAdresse);
+        final EditText EBirthplace = popupView.findViewById(R.id.popUpGetBirthplace);
+        final DatePicker datepicker= popupView.findViewById(R.id.popUpGetBirthday);
+        Button back = popupView.findViewById(R.id.back_bt);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 popupWindow.dismiss();
             }
         });
-        Button BT = (Button) popupView.findViewById(R.id.popUpButton);
+        Button BT = popupView.findViewById(R.id.popUpButton);
         BT.setText(R.string.newUserBt);
         BT.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,9 +138,9 @@ public class UsersFragment extends Fragment {
                     return;
                 }
                 //create dic and fill it
-                Hashtable dic = new Hashtable();
+                Hashtable<String,Object> dic = new Hashtable<>();
                 dic.put("Name", EName.getText().toString());
-                SimpleDateFormat sdf = new SimpleDateFormat(getString(R.string.dateFormat));
+                SimpleDateFormat sdf = new SimpleDateFormat(getString(R.string.dateFormat), Locale.getDefault());
                 dic.put("Birthday", sdf.format(datepicker.getCalendarView().getDate()));
                 dic.put("Birthplace", EBirthplace.getText().toString());
                 dic.put("Adresse", EAdresse.getText().toString());
@@ -165,8 +165,8 @@ public class UsersFragment extends Fragment {
         location[0] = 0;
         location[1] = 0;
         // Using location, the PopupWindow will be displayed right under anchorView
-        popupWindow.showAtLocation(anchorView, Gravity.CENTER_HORIZONTAL,
-                anchorView.getWidth(), anchorView.getHeight());
+        popupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY,
+                0, anchorView.getHeight());
 
     }
 
@@ -194,7 +194,7 @@ public class UsersFragment extends Fragment {
     public static void fillUsersList(Context context, List<User> UserList)
     {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        Integer nbUsers = preferences.getInt("nbUsers", 0);
+        int nbUsers = preferences.getInt("nbUsers", 0);
         for (int i = 0; i < nbUsers; i++)
         {
             String Loaded_user = preferences.getString("" + i, "null");
@@ -221,7 +221,7 @@ public class UsersFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
             mUserListener = (UsersFragment.userinterface) context;
     }

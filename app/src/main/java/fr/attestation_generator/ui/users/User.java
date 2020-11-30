@@ -7,10 +7,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Hashtable;
+import java.util.Locale;
 
 public class User implements Serializable {
 
-    private Hashtable mDic;
+    private Hashtable<String,Object> mDic;
 
     private String mName;
     private String mBirthday;
@@ -24,7 +25,7 @@ public class User implements Serializable {
     public Boolean isAutoCreate = false;
 
 
-    public User(Hashtable dic)
+    public User(Hashtable<String,Object> dic)
     {
         mDefaultMotif = (String) dic.get("Motif");
         mName = (String) dic.get("Name");
@@ -37,7 +38,7 @@ public class User implements Serializable {
 
     public User(String set)
     {
-        String values[] = set.split(";");
+        String[] values = set.split(";");
         mDefaultMotif = values[0];
         mName = values[1];
         mBirthday = values[2];
@@ -66,14 +67,14 @@ public class User implements Serializable {
         return mCity;
     }
 
-    public Hashtable getDic(Boolean auto_create) {
+    public Hashtable<String, Object> getDic(Boolean auto_create) {
         if (mDic == null || auto_create)
             makeDic(auto_create);
         return mDic;
     }
 
     private void makeDic(Boolean auto_create) {
-        mDic = new Hashtable();
+        mDic = new Hashtable<>();
         mDic.put("Motif", mDefaultMotif);
         mDic.put("Name", mName);
         mDic.put("Birthday", mBirthday);
@@ -92,17 +93,13 @@ public class User implements Serializable {
         else {
             now = new Date();
         }
-        mDic.put("Date", new SimpleDateFormat("dd / MM / YYYY").format(now));
-        mDic.put("Time", new SimpleDateFormat("HH mm").format(now).replace(' ', 'h'));
+        mDic.put("Date", new SimpleDateFormat("dd / MM / yyyy", Locale.getDefault()).format(now));
+        mDic.put("Time", new SimpleDateFormat("HH mm", Locale.getDefault()).format(now).replace(' ', 'h'));
 
     }
 
     public Boolean isChecked() {
         return isChecked;
-    }
-    public Boolean isCheckBoxVisible()
-    {
-        return  isCheckBoxVisible;
     }
 
     public void setChecked(Boolean checked) {

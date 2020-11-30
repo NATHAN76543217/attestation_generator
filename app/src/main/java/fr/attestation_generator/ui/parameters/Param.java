@@ -7,11 +7,11 @@ public class Param {
     public final static String INT = "int";
     public final static String STRING = "string";
     public final static String BOOLEAN = "bool";
-    SharedPreferences mPrefs;
-    SharedPreferences.Editor mEditor;
-    String mName;
-    String mType;
-    String mDescription;
+    final SharedPreferences mPrefs;
+    final SharedPreferences.Editor mEditor;
+    final String mName;
+    final String mType;
+    final String mDescription;
     Object Value;
 
     public Param (String name, String description, SharedPreferences pref, String type)
@@ -29,10 +29,10 @@ public class Param {
         switch (mType)
         {
             case INT :
-                Value = Integer.valueOf(mPrefs.getInt("param_" + mName, 0));
+                Value = mPrefs.getInt("param_" + mName, 0);
                 break;
             case STRING:
-                Value = String.valueOf(mPrefs.getString("param_" + mName, "null"));
+                Value = mPrefs.getString("param_" + mName, "null");
                 break;
             case BOOLEAN:
                 Value = mPrefs.getBoolean("param_" + mName, false);

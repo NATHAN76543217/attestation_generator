@@ -30,20 +30,20 @@ import java.util.List;
 
 public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-	private TextView mTitle;
-	private CheckBox mCheckBox;
+	private final TextView mTitle;
+	private final CheckBox mCheckBox;
 
 
-	private UsersFragment.userinterface mOnClickListener;
+	private final UsersFragment.userinterface mOnClickListener;
 	private User user;
-	private List<Attestation> mAttestationList;
-	private List<User> mUserList;
-	private AttestListAdapter mAdapter;
-	private Context mContext;
-	private PopupWindow mPopupWindow;
-	private Button mBtDel;
-	private Spinner mSpinMotif;
-	private UsersListAdapter mUsersAdapter;
+	private final List<Attestation> mAttestationList;
+	private final List<User> mUserList;
+	private final AttestListAdapter mAdapter;
+	private final Context mContext;
+	private final PopupWindow mPopupWindow;
+	private final Button mBtDel;
+	private final Spinner mSpinMotif;
+	private final UsersListAdapter mUsersAdapter;
 
 
 	public UsersViewHolder(@NonNull final View itemView, PopupWindow popupWindow, List<Attestation> attestationList, AttestListAdapter adapter, Context context, UsersFragment.userinterface Listener, Button btDel, List<User> userList, Spinner spin, UsersListAdapter usersListAdapter) {
@@ -74,10 +74,6 @@ public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnC
 
 	public TextView getTitle() {
 		return mTitle;
-	}
-
-	public User getUser() {
-		return user;
 	}
 
 	public void setUser(User user) {
@@ -112,28 +108,28 @@ public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnC
 		LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View popupView = inflater.inflate(R.layout.pop_up_edit_user, null);
 		final PopupWindow popupWindow = new PopupWindow(popupView,
-				LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+				LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 		//récuperation des elements
-		final EditText EName = (EditText) popupView.findViewById(R.id.popUpGetName);
+		final EditText EName = popupView.findViewById(R.id.popUpGetName);
 		EName.setText(user.getName());
-		final EditText ECity = (EditText) popupView.findViewById(R.id.popUpGetCity);
+		final EditText ECity = popupView.findViewById(R.id.popUpGetCity);
 		ECity.setText(user.getCity());
-		final EditText EAdresse = (EditText) popupView.findViewById(R.id.popUpGetAdresse);
+		final EditText EAdresse = popupView.findViewById(R.id.popUpGetAdresse);
 		EAdresse.setText(user.getAdresse());
-		final EditText EBirthplace = (EditText) popupView.findViewById(R.id.popUpGetBirthplace);
+		final EditText EBirthplace = popupView.findViewById(R.id.popUpGetBirthplace);
 		EBirthplace.setText(user.getBirthplace());
-		final DatePicker datepicker=(DatePicker)popupView.findViewById(R.id.popUpGetBirthday);
-		String updateDate[] = user.getBirthday().split("/");
+		final DatePicker datepicker= popupView.findViewById(R.id.popUpGetBirthday);
+		String[] updateDate = user.getBirthday().split("/");
 		datepicker.updateDate(Integer.parseInt(updateDate[2].trim()), Integer.parseInt(updateDate[1].trim()), Integer.parseInt(updateDate[0].trim()));
 
-		Button back = (Button) popupView.findViewById(R.id.back_bt);
+		Button back = popupView.findViewById(R.id.back_bt);
 		back.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				popupWindow.dismiss();
 			}
 		});
-		Button BT = (Button) popupView.findViewById(R.id.popUpButton);
+		Button BT = popupView.findViewById(R.id.popUpButton);
 		BT.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View popUpView) {
@@ -191,10 +187,7 @@ public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnC
 			mCheckBox.setVisibility(View.VISIBLE);
 		else
 			mCheckBox.setVisibility(View.INVISIBLE);
-		if (mCheckBox.isChecked())
-			user.setChecked(true);
-		else
-			user.setChecked(false);
+		user.setChecked(mCheckBox.isChecked());
 	}
 
 	public void setDelText(Boolean noCheck) {

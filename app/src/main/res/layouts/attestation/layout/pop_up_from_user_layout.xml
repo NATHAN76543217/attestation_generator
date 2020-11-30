@@ -26,22 +26,22 @@
                 android:layout_height="25dp"
                 android:background="@drawable/circle_button"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Selectionnez votre profil"
+                android:text="@string/popUpSelectProfile"
                 android:textSize="@dimen/popUpUserTitleSize"
                 android:textColor="@color/colorPopUpSubtitle"
                 android:padding="10dp"
-                android:layout_toRightOf="@+id/back_bt"
+                android:layout_toEndOf="@+id/back_bt"
                 />
             <TextView
                 android:id="@+id/popUpUserText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
+                android:layout_gravity="start"
                 android:textSize="@dimen/popUpSubtitleSize"
                 android:padding="5dp"
                 android:text="@string/popUpMotif"

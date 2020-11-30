@@ -5,35 +5,21 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.os.Bundle;
-
-import fr.attestation_generator.pdf.displayPdf;
-import fr.attestation_generator.ui.attestations.Attestation;
-import fr.attestation_generator.ui.attestations.AttestationFactory;
-import fr.attestation_generator.ui.home.AttestListAdapter;
-import fr.attestation_generator.ui.home.HomeFragment;
-import fr.attestation_generator.ui.parameters.Param;
-import fr.attestation_generator.ui.parameters.parameters;
-import fr.attestation_generator.ui.users.User;
-import fr.attestation_generator.ui.users.UsersFragment;
-
-import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.preference.PreferenceManager;
 
 import com.google.android.material.navigation.NavigationView;
-
-import androidx.drawerlayout.widget.DrawerLayout;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.view.Menu;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -45,6 +31,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Locale;
+
+import fr.attestation_generator.pdf.displayPdf;
+import fr.attestation_generator.ui.attestations.Attestation;
+import fr.attestation_generator.ui.attestations.AttestationFactory;
+import fr.attestation_generator.ui.home.AttestListAdapter;
+import fr.attestation_generator.ui.home.HomeFragment;
+import fr.attestation_generator.ui.parameters.Param;
+import fr.attestation_generator.ui.parameters.parameters;
+import fr.attestation_generator.ui.users.User;
+import fr.attestation_generator.ui.users.UsersFragment;
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.OnFIL, UsersFragment.userinterface {
 
@@ -111,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFI
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         //récupere parametre auto_creare
         Boolean auto_create = (Boolean) Param.loadParam(preferences, getString(R.string.auto_create), Param.BOOLEAN);
-        if (auto_create == false)
+        if (!auto_create)
             return ;
 
         //récupere list user
@@ -122,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFI
         String users_str = (String) Param.loadParam(preferences, getString(R.string.create_for_users), Param.STRING);
         String[] to_create = users_str.split(";");
         for(String str : to_create) {
-            String value[] = str.split(":");
+            String[] value = str.split(":");
             // crée pour chaque user
             for (User user : userList) {
                 if (user.getName().equals(value[0])) {
@@ -152,13 +149,11 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFI
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.optParametres:
-                openParameters();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.optParametres) {
+            openParameters();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -167,8 +162,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFI
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
-
 
     @Override
     public void onFragInteract(File pdf) {
@@ -184,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFI
 
     @Override
     public void onUserInteraction(List<Attestation> attestationList, AttestListAdapter adapter, Context context, User user) {
-        Hashtable dic = new Hashtable();
+        Hashtable<String,Object> dic = new Hashtable<>();
         dic.put("Motif", user.getDefaultMotif());
         dic.put("Name", user.getName());
         dic.put("Birthday", user.getBirthday());
@@ -192,8 +185,8 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFI
         dic.put("Adresse", user.getAdresse());
         dic.put("City", user.getCity());
         Date now = new Date();
-        dic.put("Date", new SimpleDateFormat("dd / MM / YYYY").format(now));
-        dic.put("Time", new SimpleDateFormat("HH mm").format(now).replace(' ', 'h'));
+        dic.put("Date", new SimpleDateFormat("dd / MM / yyyy", Locale.getDefault()).format(now));
+        dic.put("Time", new SimpleDateFormat("HH mm", Locale.getDefault()).format(now).replace(' ', 'h'));
         HomeFragment.addNewPdf(attestationList, adapter, context, dic);
     }
     private void openParameters() {

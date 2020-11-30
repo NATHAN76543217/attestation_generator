@@ -13,10 +13,10 @@ import java.io.File;
 
 public class HomeViewHolder extends RecyclerView.ViewHolder{
 
-    private TextView mTextView;
-    private TextView mcontent;
-    private ImageButton mImageButton;
-    private HomeFragment.OnFIL mClickListener;
+    private final TextView mTextView;
+    private final TextView mcontent;
+    private final ImageButton mImageButton;
+    private final HomeFragment.OnFIL mClickListener;
     private File myPdf;
 
     public HomeViewHolder(@NonNull final View itemView, HomeFragment.OnFIL _clickListener) {

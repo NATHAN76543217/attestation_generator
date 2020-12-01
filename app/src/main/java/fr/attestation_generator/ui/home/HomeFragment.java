@@ -118,7 +118,7 @@ public class HomeFragment extends Fragment implements OnLoadCompleteListener, On
         final View popupNewView = getLayoutInflater().inflate(R.layout.pop_up_new_layout, null);
 
         final PopupWindow popupWindow = new PopupWindow(chooseView,
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         Button fromUser = chooseView.findViewById(R.id.popUpChoiceFrom);
         Button fromNew = chooseView.findViewById(R.id.popUpChoiceNew);
         fromNew.setOnClickListener(new View.OnClickListener() {

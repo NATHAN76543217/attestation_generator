@@ -111,7 +111,7 @@ public class UsersFragment extends Fragment {
     public void newUser(final View anchorView) {
         View popupView = getLayoutInflater().inflate(R.layout.pop_up_add_user, null);
         final PopupWindow popupWindow = new PopupWindow(popupView,
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
 
 
         final EditText EName = popupView.findViewById(R.id.popUpGetName);
@@ -165,7 +165,7 @@ public class UsersFragment extends Fragment {
         location[0] = 0;
         location[1] = 0;
         // Using location, the PopupWindow will be displayed right under anchorView
-        popupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY,
+        popupWindow.showAtLocation(anchorView, Gravity.CENTER,
                 0, anchorView.getHeight());
 
     }

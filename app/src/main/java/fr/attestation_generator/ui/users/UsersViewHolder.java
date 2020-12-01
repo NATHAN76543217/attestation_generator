@@ -108,7 +108,7 @@ public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnC
 		LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View popupView = inflater.inflate(R.layout.pop_up_edit_user, null);
 		final PopupWindow popupWindow = new PopupWindow(popupView,
-				LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+				LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
 		//récuperation des elements
 		final EditText EName = popupView.findViewById(R.id.popUpGetName);
 		EName.setText(user.getName());
@@ -157,7 +157,7 @@ public class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnC
 		// If you need the PopupWindow to dismiss when when touched outside
 		popupWindow.setBackgroundDrawable(new ColorDrawable());
 		// Using location, the PopupWindow will be displayed right under anchorView
-		popupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY,
+		popupWindow.showAtLocation(anchorView, Gravity.CENTER,
 				0, anchorView.getHeight());
 
 	}
